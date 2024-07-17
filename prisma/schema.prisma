@@ -1,0 +1,54 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id
+  email    String  @unique
+  password String
+  shifts   Shift[]
+  proxies  Proxy[]
+}
+
+model Proxy {
+  id       Int    @id
+  host     String
+  port     Int
+  username String
+  password String
+  User     User   @relation(fields: [userId], references: [id])
+  userId   Int
+}
+
+model Shift {
+  id      Int      @id
+  startAt DateTime
+  endAt   DateTime
+  User    User     @relation(fields: [userId], references: [id])
+  userId  Int
+  Zone    Zone     @relation(fields: [zoneId], references: [id])
+  zoneId  Int
+}
+
+model Zone {
+  id        Int     @id
+  name      String  @unique
+  shifts    Shift[]
+  Country   Country @relation(fields: [countryId], references: [id])
+  countryId Int
+}
+
+model Country {
+  id       Int    @id
+  code     String @unique
+  timezone String
+  Zones    Zone[]
+}
