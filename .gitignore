@@ -1,0 +1,22 @@
+# General files
+node_modules/
+
+# Build files
+dist/
+build/
+bin/
+
+# IDE and editor files
+.vscode/
+
+# Temporary files
+*.tmp
+**/.DS_Store
+
+# Puppeteer-specific
+utils/
+.puppeteer_dev
+
+# Env files
+.env
+.env.template
