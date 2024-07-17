@@ -26,6 +26,9 @@
     "rooster_shift_finder": "./dist/main.js"
   },
   "pkg": {
+    "assets": [
+      "node_modules/.prisma/client/"
+    ],
     "targets": [
       "node20-win-x64"
     ],
