@@ -17,6 +17,7 @@ export interface CssSelectors {
   passwordInput: string;
   loginButton: string;
   pageTitle: string;
+  articleShift: string;
 }
 
 export interface ShiftJson {
@@ -30,5 +31,5 @@ export interface ShiftJson {
 export interface ShiftElement {
   zone: string;
   time: string;
-  article?: ElementHandle<HTMLElement>;
+  article?: ElementHandle;
 }

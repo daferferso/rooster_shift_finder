@@ -18,6 +18,7 @@ const defaultConfig: Config = {
     passwordInput: "",
     loginButton: "",
     pageTitle: "",
+    articleShift: "",
   },
 };
 
