@@ -5,17 +5,27 @@ import { Config } from "../interfaces/interface";
 import { User } from "@prisma/client";
 import { getShifts } from "../scripts/getShifts";
 import { filterShifts } from "./shiftService";
+import { refreshMenu, refreshBackAndForward } from "../scripts/menu";
 
 export const loopFinder = async (page: Page, user: User, config: Config) => {
+  // Simple code to find shifts everytime
+  await refreshMenu(page, config);
+
   while (true) {
-    // Simple code to find shifts everytime
-    await new Promise((resolve) => setTimeout(resolve, config.requestDelay));
+    try {
+      await new Promise((resolve) => setTimeout(resolve, config.requestDelay));
 
-    const shiftsElements = await getShifts(page, config);
-    if (shiftsElements.length === 0) continue;
+      await refreshBackAndForward(page);
 
-    const filteredShifts = await filterShifts(shiftsElements);
+      const shiftsElements = await getShifts(page, config);
+      if (shiftsElements.length === 0) continue;
 
-    console.log("Shifts filtered:", filteredShifts.length);
+      const filteredShifts = await filterShifts(shiftsElements);
+
+      console.log("Shifts filtered:", filteredShifts.length);
+    } catch (error) {
+      console.error("Error during loop execution:", error);
+      break;
+    }
   }
 };

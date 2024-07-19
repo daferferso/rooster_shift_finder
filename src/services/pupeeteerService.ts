@@ -1,6 +1,6 @@
 // Here we need to handle the initial instance to run Chrome Browser
 
-import puppeteer, { Browser, Page } from "puppeteer";
+import puppeteer, { Browser, Page, PuppeteerError } from "puppeteer";
 import { Config } from "../interfaces/interface";
 import { KnownDevices } from "puppeteer";
 
@@ -17,6 +17,7 @@ export async function getPage(config: Config): Promise<Page> {
   });
   const page: Page = await browser.newPage();
   await page.emulate(iPhone);
+  page.setDefaultTimeout(config.timeOutElements);
   return page;
 }
 

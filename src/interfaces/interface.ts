@@ -17,7 +17,12 @@ export interface CssSelectors {
   passwordInput: string;
   loginButton: string;
   pageTitle: string;
+  shiftsPanel: string;
   articleShift: string;
+  menuFromAvailableTimes: string;
+  menuFromTimeConnections: string;
+  myTimeConnections: string;
+  myAvailableTimes: string;
 }
 
 export interface ShiftJson {

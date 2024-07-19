@@ -7,7 +7,7 @@ export const getShifts = async (
   page: Page,
   config: Config
 ): Promise<ShiftElement[]> => {
-  await page.waitForSelector(config.selectors.articleShift);
+  await page.waitForSelector(config.selectors.shiftsPanel);
   const articles = await page.$$(config.selectors.articleShift);
 
   let shifts: ShiftElement[] = [];

@@ -18,7 +18,12 @@ const defaultConfig: Config = {
     passwordInput: "",
     loginButton: "",
     pageTitle: "",
+    shiftsPanel: "",
     articleShift: "",
+    menuFromAvailableTimes: "",
+    menuFromTimeConnections: "",
+    myAvailableTimes: "",
+    myTimeConnections: "",
   },
 };
 
