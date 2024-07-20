@@ -5,10 +5,10 @@ export const refreshMenu = async (page: Page, config: Config) => {
   await page.locator(config.selectors.menuFromAvailableTimes).click();
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  await page.locator(config.selectors.myTimeConnections).click();
+  await page.locator(config.selectors.myProfile).click();
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  await page.locator(config.selectors.menuFromTimeConnections).click();
+  await page.locator(config.selectors.menuFromMyProfile).click();
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   await page.locator(config.selectors.myAvailableTimes).click();

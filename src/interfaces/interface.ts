@@ -20,9 +20,10 @@ export interface CssSelectors {
   shiftsPanel: string;
   articleShift: string;
   menuFromAvailableTimes: string;
-  menuFromTimeConnections: string;
-  myTimeConnections: string;
+  menuFromMyProfile: string;
+  myProfile: string;
   myAvailableTimes: string;
+  buttonDays: string;
 }
 
 export interface ShiftJson {
@@ -37,4 +38,8 @@ export interface ShiftElement {
   zone: string;
   time: string;
   article?: ElementHandle;
+}
+
+export interface Dates {
+  [date: string]: ElementHandle<Element>;
 }

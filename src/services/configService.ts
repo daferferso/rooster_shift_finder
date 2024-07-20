@@ -21,9 +21,10 @@ const defaultConfig: Config = {
     shiftsPanel: "",
     articleShift: "",
     menuFromAvailableTimes: "",
-    menuFromTimeConnections: "",
+    menuFromMyProfile: "",
     myAvailableTimes: "",
-    myTimeConnections: "",
+    myProfile: "",
+    buttonDays: "",
   },
 };
 

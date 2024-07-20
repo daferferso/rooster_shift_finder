@@ -21,5 +21,6 @@ export const getShifts = async (
     shift.article = article;
     shifts.push(shift);
   }
+  console.log(shifts.length)
   return shifts;
 };
