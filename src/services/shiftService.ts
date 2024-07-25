@@ -46,12 +46,15 @@ export const handleResponse = async (
     const contentType = res.headers()["content-type"];
     if (contentType && contentType.includes("application/json")) {
       const data = await res.json();
+      const token = res.headers()["authorization"]
+        ? res.headers()["authorization"]
+        : "";
       if (url.includes("available_unassigned_shifts")) {
         console.log("Shifts:", data.content.length);
-        await handleShifts(data.content, false, user, config);
+        await handleShifts(data.content, false, user, config, token);
       } else if (url.includes("available_swaps")) {
         console.log("Swaps:", data.length);
-        await handleShifts(data, true, user, config);
+        await handleShifts(data, true, user, config, token);
       }
     }
   } catch (error) {
@@ -63,7 +66,8 @@ const handleShifts = async (
   shifts: ShiftJson[],
   swap = false,
   user: User,
-  config: Config
+  config: Config,
+  token: string
 ) => {
   const tz = "America/La_Paz";
   if (!shifts) return false;
@@ -97,14 +101,15 @@ const handleShifts = async (
       let shiftResult = false;
 
       if (swap) {
-        shiftResult = await fetchTakeSwapShift(shift, user, config);
+        shiftResult = await fetchTakeSwapShift(shift, user, config, token);
       } else {
         shiftResult = await fetchTakeShift(
           shift,
           startShift,
           endShift,
           user,
-          config
+          config,
+          token
         );
       }
 
@@ -194,7 +199,8 @@ const fetchTakeShift = async (
   start: Moment,
   end: Moment,
   user: User,
-  config: Config
+  config: Config,
+  token: string
 ): Promise<boolean> => {
   const shift_id = shift.id ? shift.id : shift.shift_id;
   let url = `https://bo.usehurrier.com/api/rooster/v2/unassigned_shifts/${shift_id}/assign`;
@@ -208,10 +214,8 @@ const fetchTakeShift = async (
     employee_ids: [user.id],
   });
 
-  const token =
-    "eyJhbGciOiJSUzI1NiIsImtpZCI6ImtleW1ha2VyLXJpZGVyLTAwMTItaWFtIiwidHlwIjoiSldUIn0.eyJpc3MiOiJsb2dpc3RpY3Mtand0LWlzc3VlciIsInN1YiI6MjE4NzksImF1ZCI6ImlhbS1sb2dpbi11cyIsImV4cCI6MTcyMTkzNzcwMSwiaWF0IjoxNzIxOTIzMzAxLCJqdGkiOiI4eDlzNW9yMHJxbnQ5ZzF4c3FiNm5vZTl2aG1ibTl5cmZpc2gwMm50Iiwic2NvcGUiOiJrZXltYWtlci51c2VyLmlhbS1sb2dpbi11cy5wYXNzd29yZCIsImVtYSI6InlhbWlsZWxwZW9yMTlAZ21haWwuY29tIiwidXNlcm5hbWUiOiIyMTg3OSIsIm5hbSI6IkpoYXNvbm4gamFtaWwgbW9udGVjaW5vcyB2aWxsYSIsInJvbCI6ImRyaXZlciIsInJvbGVzIjpbInJvb3N0ZXIuY291cmllciIsIm1vYmlsZS5jb3VyaWVyIiwicGF5bWVudHMuY291cmllciIsImNvZC5jb3VyaWVyIl0sImNvdW50cmllcyI6WyJibyJdfQ.htLgQBaBNAs5yMnBeiKz-mBPz03nCRL8kEjWtRtF7hOS3XdjSldzP8KXAGZUJxUy0gVFdrk6yrzvikvWbjmJ70eWRwCZQWCK3KLYe59w-6pVFFoHe0kOvMiiaF8ub4x3y1uQj4djXx-kGuZ8BNeR5A68-ye6BVREILaYeXvbdByI-w3UcItZNIMST0eqNAxFsPRblnzWnBm0ha0srvhOyUgOGBgJRFpQWq5QSTWbHo1v8e5GIu7Y-UuFL6D22eHCT6ZIJhvXxKjRhyoaJCr7gi-OjDuu8Dx58Hmfoa-JMiE8d2u4KDEIzSolsPumcZYIKUqFHQ4YdrPuaH1SAOa0KQ";
   let headers = { ...config.headers };
-  headers.authorization = `Bearer ${token}`;
+  headers.authorization = token;
   headers.Referer = "https://bo.usehurrier.com/app/rooster/web/shifts";
 
   try {
@@ -241,14 +245,13 @@ const fetchTakeShift = async (
 const fetchTakeSwapShift = async (
   shift: ShiftJson,
   user: User,
-  config: Config
+  config: Config,
+  token: string
 ): Promise<boolean> => {
   const shift_id = shift.id ? shift.id : shift.shift_id;
   let url = `https://bo.usehurrier.com/api/rooster/v2/shifts/${shift_id}/swap`;
   let headers = { ...config.headers };
-  const token =
-    "eyJhbGciOiJSUzI1NiIsImtpZCI6ImtleW1ha2VyLXJpZGVyLTAwMTItaWFtIiwidHlwIjoiSldUIn0.eyJpc3MiOiJsb2dpc3RpY3Mtand0LWlzc3VlciIsInN1YiI6MjE4NzksImF1ZCI6ImlhbS1sb2dpbi11cyIsImV4cCI6MTcyMTkzNzcwMSwiaWF0IjoxNzIxOTIzMzAxLCJqdGkiOiI4eDlzNW9yMHJxbnQ5ZzF4c3FiNm5vZTl2aG1ibTl5cmZpc2gwMm50Iiwic2NvcGUiOiJrZXltYWtlci51c2VyLmlhbS1sb2dpbi11cy5wYXNzd29yZCIsImVtYSI6InlhbWlsZWxwZW9yMTlAZ21haWwuY29tIiwidXNlcm5hbWUiOiIyMTg3OSIsIm5hbSI6IkpoYXNvbm4gamFtaWwgbW9udGVjaW5vcyB2aWxsYSIsInJvbCI6ImRyaXZlciIsInJvbGVzIjpbInJvb3N0ZXIuY291cmllciIsIm1vYmlsZS5jb3VyaWVyIiwicGF5bWVudHMuY291cmllciIsImNvZC5jb3VyaWVyIl0sImNvdW50cmllcyI6WyJibyJdfQ.htLgQBaBNAs5yMnBeiKz-mBPz03nCRL8kEjWtRtF7hOS3XdjSldzP8KXAGZUJxUy0gVFdrk6yrzvikvWbjmJ70eWRwCZQWCK3KLYe59w-6pVFFoHe0kOvMiiaF8ub4x3y1uQj4djXx-kGuZ8BNeR5A68-ye6BVREILaYeXvbdByI-w3UcItZNIMST0eqNAxFsPRblnzWnBm0ha0srvhOyUgOGBgJRFpQWq5QSTWbHo1v8e5GIu7Y-UuFL6D22eHCT6ZIJhvXxKjRhyoaJCr7gi-OjDuu8Dx58Hmfoa-JMiE8d2u4KDEIzSolsPumcZYIKUqFHQ4YdrPuaH1SAOa0KQ";
-  headers.authorization = `Bearer ${token}`;
+  headers.authorization = token;
   headers.Referer = "https://bo.usehurrier.com/app/rooster/web/shifts";
   try {
     const response = await fetch(url, {
