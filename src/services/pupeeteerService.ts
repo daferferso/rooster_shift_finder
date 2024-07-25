@@ -14,15 +14,10 @@ export async function getPage(config: Config): Promise<Page> {
       `--disable-extensions-except=${config.extensionPath}`,
       `--load-extension=${config.extensionPath}`,
     ],
+    ignoreDefaultArgs: ["--enable-automation"],
   });
-  const page: Page = await browser.newPage();
+  const [page]: Page[] = await browser.pages();
   await page.emulate(iPhone);
   page.setDefaultTimeout(config.timeOutElements);
   return page;
-}
-
-export async function closeAllPages(currentPage: Page) {
-  for (const page of await currentPage.browser().pages()) {
-    if (page !== currentPage) await page.close();
-  }
 }
