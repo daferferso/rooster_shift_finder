@@ -26,9 +26,14 @@ export const getZones = async (): Promise<Zone[] | null | undefined> => {
   return zones;
 };
 
-
-export const saveShift = async (shift: ShiftJson) =>{
-  // await prisma.shift.create({
-  //   data: {id: shift.id? shift.shift_id}
-  // })
-}
+export const saveShift = async (shift: ShiftJson, user: User) => {
+  await prisma.shift.create({
+    data: {
+      id: shift.id,
+      startAt: new Date(shift.start),
+      endAt: new Date(shift.end),
+      userId: user.id,
+      zoneId: shift.starting_point_id,
+    },
+  });
+};

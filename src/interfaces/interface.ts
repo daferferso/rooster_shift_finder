@@ -33,7 +33,7 @@ export interface Headers {
   cookie: string;
   "Referrer-Policy": string;
   authorization?: string;
-  Referer?: string
+  Referer?: string;
 }
 
 export interface CssSelectors {
@@ -64,10 +64,10 @@ export interface Condition {
 }
 
 export interface ShiftJson {
-  id?: number;
+  id: number;
   shift_id?: number;
-  start?: string;
-  end?: string;
+  start: string;
+  end: string;
   start_at?: string;
   end_at?: string;
   status?: string;

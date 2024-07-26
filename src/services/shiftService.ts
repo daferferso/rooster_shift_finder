@@ -12,6 +12,8 @@ import {
   parseDateTimeShift,
 } from "./utilsService";
 
+let token = "";
+
 export const handleRequest = async (
   req: HTTPRequest,
   config: Config,
@@ -19,10 +21,13 @@ export const handleRequest = async (
 ) => {
   const url = req.url();
   let newUrl: string | undefined = undefined;
+
   if (url.includes("available_unassigned_shifts")) {
+    token = req.headers()["authorization"] ?? "";
     newUrl = await mockupUnassignedUrl(url, config, uniqueZoneIds);
   }
   if (url.includes("available_swaps")) {
+    token = req.headers()["authorization"] ?? "";
     newUrl = await mockupSwapUrl(url, config, uniqueZoneIds);
   }
   if (newUrl) {
@@ -46,9 +51,6 @@ export const handleResponse = async (
     const contentType = res.headers()["content-type"];
     if (contentType && contentType.includes("application/json")) {
       const data = await res.json();
-      const token = res.headers()["authorization"]
-        ? res.headers()["authorization"]
-        : "";
       if (url.includes("available_unassigned_shifts")) {
         console.log("Shifts:", data.content.length);
         await handleShifts(data.content, false, user, config, token);
@@ -85,6 +87,10 @@ const handleShifts = async (
     );
 
     for (const shift of filteredShifts) {
+      shift.id = shift.id ?? shift.shift_id;
+      shift.start = shift.start ?? shift.start_at;
+      shift.end = shift.end ?? shift.end_at;
+
       const { startShift, endShift } = await parseDateTimeShift(shift, tz);
       const diffShift = moment.duration(endShift.diff(startShift));
 
@@ -114,8 +120,8 @@ const handleShifts = async (
       }
 
       if (shiftResult) {
-        // logger.info(`Shift taked - ${this.email}`);
-        await saveShift(shift);
+        console.info(`Shift taked - ${user.email}`);
+        await saveShift(shift, user);
         // logger.error(`Error saving shift - ${this.email} - ${error}`);
       } else {
         // logger.info(`Shift lost - ${this.email}`);
@@ -231,8 +237,6 @@ const fetchTakeShift = async (
       );
     }
     console.log(`Assigning Shift - Code - ${response.status} - ${user.email}`);
-    const data = await response.json();
-    console.log("Shift tomado:", data);
     return true;
   } catch (error) {
     // logger.error(error.message);
