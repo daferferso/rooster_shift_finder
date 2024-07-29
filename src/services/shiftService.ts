@@ -5,6 +5,7 @@ import { Config, ShiftJson } from "../interfaces/interface";
 import moment, { Duration, Moment } from "moment-timezone";
 import { User } from "@prisma/client";
 import { saveShift } from "./dataService";
+import { Logger } from "winston";
 import {
   mockupSwapUrl,
   mockupUnassignedUrl,
@@ -40,7 +41,8 @@ export const handleRequest = async (
 export const handleResponse = async (
   res: HTTPResponse,
   user: User,
-  config: Config
+  config: Config,
+  logger: Logger
 ) => {
   const url = res.url();
   const method = res.request().method();
@@ -52,15 +54,15 @@ export const handleResponse = async (
     if (contentType && contentType.includes("application/json")) {
       const data = await res.json();
       if (url.includes("available_unassigned_shifts")) {
-        console.log("Shifts:", data.content.length);
-        await handleShifts(data.content, false, user, config, token);
+        logger.info(`Shifts: ${data.content.length}`);
+        await handleShifts(data.content, false, user, config, token, logger);
       } else if (url.includes("available_swaps")) {
-        console.log("Swaps:", data.length);
-        await handleShifts(data, true, user, config, token);
+        logger.info(`Swaps: ${data.length}`);
+        await handleShifts(data, true, user, config, token, logger);
       }
     }
   } catch (error) {
-    console.error(`Error processing response from ${url}:`, error);
+    logger.error(`Error processing response from ${url}:`, error);
   }
 };
 
@@ -69,8 +71,10 @@ const handleShifts = async (
   swap = false,
   user: User,
   config: Config,
-  token: string
+  token: string,
+  logger: Logger
 ) => {
+  const shiftTaked: ShiftJson[] = [];
   const tz = "America/La_Paz";
   if (!shifts) return false;
   for (const condition of config.conditions) {
@@ -107,7 +111,13 @@ const handleShifts = async (
       let shiftResult = false;
 
       if (swap) {
-        shiftResult = await fetchTakeSwapShift(shift, user, config, token);
+        shiftResult = await fetchTakeSwapShift(
+          shift,
+          user,
+          config,
+          token,
+          logger
+        );
       } else {
         shiftResult = await fetchTakeShift(
           shift,
@@ -115,16 +125,17 @@ const handleShifts = async (
           endShift,
           user,
           config,
-          token
+          token,
+          logger
         );
       }
 
       if (shiftResult) {
-        console.info(`Shift taked - ${user.email}`);
+        logger.info(`Shift taked - ${user.email}`);
+        shiftTaked.push(shift);
         await saveShift(shift, user);
-        // logger.error(`Error saving shift - ${this.email} - ${error}`);
       } else {
-        // logger.info(`Shift lost - ${this.email}`);
+        logger.info(`Shift lost - ${user.email}`);
       }
       // return shiftResult;
     }
@@ -206,7 +217,8 @@ const fetchTakeShift = async (
   end: Moment,
   user: User,
   config: Config,
-  token: string
+  token: string,
+  logger: Logger
 ): Promise<boolean> => {
   const shift_id = shift.id ? shift.id : shift.shift_id;
   let url = `https://bo.usehurrier.com/api/rooster/v2/unassigned_shifts/${shift_id}/assign`;
@@ -236,11 +248,10 @@ const fetchTakeShift = async (
         `Assigning Shift - Code - ${response.status} - ${user.email}`
       );
     }
-    console.log(`Assigning Shift - Code - ${response.status} - ${user.email}`);
+    logger.info(`Assigning Shift - Code - ${response.status} - ${user.email}`);
     return true;
   } catch (error) {
-    // logger.error(error.message);
-    console.error("Error al tomar turno", error);
+    logger.error(`Error al tomar turno ${error}`);
     return false;
   }
   // return true;
@@ -250,7 +261,8 @@ const fetchTakeSwapShift = async (
   shift: ShiftJson,
   user: User,
   config: Config,
-  token: string
+  token: string,
+  logger: Logger
 ): Promise<boolean> => {
   const shift_id = shift.id ? shift.id : shift.shift_id;
   let url = `https://bo.usehurrier.com/api/rooster/v2/shifts/${shift_id}/swap`;
@@ -269,10 +281,10 @@ const fetchTakeSwapShift = async (
         `Assigning Swap - Code - ${response.status} - ${user.email}`
       );
     }
-    console.debug(`Assigning Swap - Code - ${response.status} - ${user.email}`);
+    logger.debug(`Assigning Swap - Code - ${response.status} - ${user.email}`);
     return true;
   } catch (error) {
-    console.error(error);
+    logger.error(error);
     return false;
   }
 };

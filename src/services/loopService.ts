@@ -7,8 +7,14 @@ import { handleRequest, handleResponse } from "./shiftService";
 import { refreshMenu, refreshBackAndForward } from "../scripts/menu";
 import { getAllDays, goToDay } from "../scripts/days";
 import { sleep } from "./utilsService";
+import { Logger } from "winston";
 
-export const loopFinder = async (page: Page, user: User, config: Config) => {
+export const loopFinder = async (
+  page: Page,
+  user: User,
+  config: Config,
+  logger: Logger
+) => {
   // Simple code to find shifts everytime
 
   const allZoneIds: number[] = config.conditions.flatMap(
@@ -27,7 +33,7 @@ export const loopFinder = async (page: Page, user: User, config: Config) => {
     await handleRequest(req, config, uniqueZoneIds);
   });
   page.on("response", async (res) => {
-    await handleResponse(res, user, config);
+    await handleResponse(res, user, config, logger);
   });
 
   while (true) {
@@ -35,7 +41,7 @@ export const loopFinder = async (page: Page, user: User, config: Config) => {
       await sleep(config.requestDelay);
       await refreshBackAndForward(page);
     } catch (error) {
-      console.error("Error during loop execution:", error);
+      logger.error("Error during loop execution:", error);
       break;
     }
   }

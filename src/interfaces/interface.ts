@@ -3,6 +3,7 @@ import { Moment } from "moment-timezone";
 import { ElementHandle } from "puppeteer";
 
 export interface Config {
+  log: boolean;
   requestDelay: number;
   startDay: string;
   endDay: string;

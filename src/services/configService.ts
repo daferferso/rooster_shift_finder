@@ -5,6 +5,7 @@ import { Config } from "../interfaces/interface";
 import path from "path";
 
 const defaultConfig: Config = {
+  log: true,
   requestDelay: 0,
   startDay: new Date().toISOString().substring(0, 10),
   endDay: new Date().toISOString().substring(0, 10),
