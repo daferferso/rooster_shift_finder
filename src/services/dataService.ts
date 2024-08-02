@@ -1,11 +1,11 @@
 // Here we need to handle database connection and save data functions
 
-import { PrismaClient, User, Zone } from "@prisma/client";
+import { PrismaClient, Proxy, User, Zone } from "@prisma/client";
 import path from "path";
 import { ShiftJson } from "../interfaces/interface";
 
 export const prisma = new PrismaClient({
-  log: ["query"],
+  log: [],
   datasources: {
     db: {
       url: `file:${path.join(process.cwd(), "utils/database.db")}`,
@@ -24,6 +24,15 @@ export const getZones = async (): Promise<Zone[] | null | undefined> => {
   const zones: Zone[] | null | undefined = await prisma.zone.findMany();
   if (!zones) return;
   return zones;
+};
+
+export const getProxies = async (
+  user: User
+): Promise<Proxy[] | null | undefined> => {
+  const proxies: Proxy[] | null | undefined = await prisma.proxy.findMany({
+    where: { userId: user.id },
+  });
+  return proxies;
 };
 
 export const saveShift = async (shift: ShiftJson, user: User) => {

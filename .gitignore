@@ -1,5 +1,6 @@
 # General files
 node_modules/
+.log
 
 # Build files
 dist/
@@ -20,3 +21,6 @@ utils/
 # Env files
 .env
 .env.template
+
+# Log files
+app.log

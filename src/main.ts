@@ -4,24 +4,44 @@ import winston, { Logger } from "winston";
 import { Page } from "puppeteer";
 import { loadConfig } from "./services/configService";
 import { Config } from "./interfaces/interface";
-import { getPage } from "./services/pupeeteerService";
-import { User } from "@prisma/client";
+import { clearDataBrowser, getPage } from "./services/pupeeteerService";
+import { Proxy, User } from "@prisma/client";
 import { handleLogin } from "./services/loginService";
 import { loopFinder } from "./services/loopService";
-import { getUser } from "./services/dataService";
+import { getProxies, getUser } from "./services/dataService";
+import {
+  createProxyAgent,
+  handleProxyConnection,
+} from "./services/proxyService";
 
 async function main() {
+  // Load config and initialize logger
   const config: Config = loadConfig();
-
   const logger: Logger = await createLogger(config);
 
+  // Get data from de DB
   const user: User | null | undefined = await getUser();
   if (!user) return;
+  let proxies: Proxy[] | null | undefined = await getProxies(user);
+  if (!proxies || proxies.length === 0) return;
 
+  // Get instance of Page from Pupeeteer
   const page: Page = await getPage(config);
 
-  await handleLogin(page, user, config, logger);
-  await loopFinder(page, user, config, logger);
+  while (true) {
+    const nextProxy = proxies.shift()!;
+    const proxyAgent = await createProxyAgent(nextProxy);
+    proxies.push(nextProxy);
+    try {
+      await handleProxyConnection(nextProxy, page.browser(), logger);
+      await handleLogin(page, user, config, logger);
+      await loopFinder(page, user, config, proxyAgent, logger);
+    } catch (error) {
+      logger.error(`An error in main loop ${error}`);
+    } finally {
+      await clearDataBrowser(page, logger);
+    }
+  }
 }
 
 async function createLogger(config: Config): Promise<Logger> {

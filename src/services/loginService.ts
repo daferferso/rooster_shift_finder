@@ -15,5 +15,11 @@ export const handleLogin = async (
   // Handle User Login
   await login(page, user, config);
   const logged = await validateLogin(page, config);
-  if (!logged) await page.browser().close();
+  if (!logged) {
+    logger.error(`Credentials error - ${user.email}`);
+    return await page.browser().close();
+  }
+  logger.info(`Login successfull - ${user.email}`);
+
+  await page.reload();
 };

@@ -1,7 +1,7 @@
 // Here we need to handle everything about shift (filter, take)
 
 import { HTTPRequest, HTTPResponse } from "puppeteer";
-import { Config, ShiftJson } from "../interfaces/interface";
+import { Config, ProxyBannedError, ShiftJson } from "../interfaces/interface";
 import moment, { Duration, Moment } from "moment-timezone";
 import { User } from "@prisma/client";
 import { saveShift } from "./dataService";
@@ -12,29 +12,38 @@ import {
   parseDateTimeCondition,
   parseDateTimeShift,
 } from "./utilsService";
+import { Agent } from "http";
+import fetch from "node-fetch-commonjs";
 
 let token = "";
 
 export const handleRequest = async (
   req: HTTPRequest,
   config: Config,
-  uniqueZoneIds: string
+  uniqueZoneIds: string,
+  logger: Logger
 ) => {
-  const url = req.url();
-  let newUrl: string | undefined = undefined;
+  try {
+    const url = req.url();
+    let newUrl: string | undefined = undefined;
 
-  if (url.includes("available_unassigned_shifts")) {
-    token = req.headers()["authorization"] ?? "";
-    newUrl = await mockupUnassignedUrl(url, config, uniqueZoneIds);
-  }
-  if (url.includes("available_swaps")) {
-    token = req.headers()["authorization"] ?? "";
-    newUrl = await mockupSwapUrl(url, config, uniqueZoneIds);
-  }
-  if (newUrl) {
-    req.continue({ url: newUrl });
-  } else {
+    if (url.includes("available_unassigned_shifts")) {
+      token = req.headers()["authorization"] ?? "";
+      newUrl = await mockupUnassignedUrl(url, config, uniqueZoneIds);
+    }
+    if (url.includes("available_swaps")) {
+      token = req.headers()["authorization"] ?? "";
+      newUrl = await mockupSwapUrl(url, config, uniqueZoneIds);
+    }
+    if (newUrl) {
+      req.continue({ url: newUrl });
+    } else {
+      req.continue();
+    }
+  } catch (error) {
+    logger.error(`Error processing request: ${error}`);
     req.continue();
+    throw error;
   }
 };
 
@@ -42,27 +51,39 @@ export const handleResponse = async (
   res: HTTPResponse,
   user: User,
   config: Config,
+  proxyAgent: Agent,
   logger: Logger
 ) => {
   const url = res.url();
   const method = res.request().method();
 
-  if (method === "OPTIONS" || !res.ok()) return;
-
   try {
+    if (method === "OPTIONS" || !res.ok()) return;
     const contentType = res.headers()["content-type"];
     if (contentType && contentType.includes("application/json")) {
-      const data = await res.json();
       if (url.includes("available_unassigned_shifts")) {
+        const data = await res.json();
+        logger.info(res.status());
         logger.info(`Shifts: ${data.content.length}`);
-        await handleShifts(data.content, false, user, config, token, logger);
+        await handleShifts(
+          data.content,
+          false,
+          user,
+          config,
+          token,
+          proxyAgent,
+          logger
+        );
       } else if (url.includes("available_swaps")) {
+        const data = await res.json();
+        logger.info(res.status());
         logger.info(`Swaps: ${data.length}`);
-        await handleShifts(data, true, user, config, token, logger);
+        await handleShifts(data, true, user, config, token, proxyAgent, logger);
       }
     }
   } catch (error) {
-    logger.error(`Error processing response from ${url}:`, error);
+    logger.error(`Error processing response: ${error}`);
+    throw error;
   }
 };
 
@@ -72,9 +93,10 @@ const handleShifts = async (
   user: User,
   config: Config,
   token: string,
+  proxyAgent: Agent,
   logger: Logger
 ) => {
-  const shiftTaked: ShiftJson[] = [];
+  // const shiftTaked: ShiftJson[] = [];
   const tz = "America/La_Paz";
   if (!shifts) return false;
   for (const condition of config.conditions) {
@@ -116,6 +138,7 @@ const handleShifts = async (
           user,
           config,
           token,
+          proxyAgent,
           logger
         );
       } else {
@@ -126,14 +149,16 @@ const handleShifts = async (
           user,
           config,
           token,
+          proxyAgent,
           logger
         );
       }
 
       if (shiftResult) {
         logger.info(`Shift taked - ${user.email}`);
-        shiftTaked.push(shift);
+        // shiftTaked.push(shift);
         await saveShift(shift, user);
+        return;
       } else {
         logger.info(`Shift lost - ${user.email}`);
       }
@@ -218,6 +243,7 @@ const fetchTakeShift = async (
   user: User,
   config: Config,
   token: string,
+  proxyAgent: Agent,
   logger: Logger
 ): Promise<boolean> => {
   const shift_id = shift.id ? shift.id : shift.shift_id;
@@ -241,7 +267,7 @@ const fetchTakeShift = async (
       headers: headers,
       body: body,
       method: "POST",
-      // agent: this.proxyAgent,
+      agent: proxyAgent,
     });
     if (response.status !== 202) {
       throw new Error(
@@ -262,6 +288,7 @@ const fetchTakeSwapShift = async (
   user: User,
   config: Config,
   token: string,
+  proxyAgent: Agent,
   logger: Logger
 ): Promise<boolean> => {
   const shift_id = shift.id ? shift.id : shift.shift_id;
@@ -274,7 +301,7 @@ const fetchTakeSwapShift = async (
       headers: headers,
       body: null,
       method: "PUT",
-      // agent: this.proxyAgent,
+      agent: proxyAgent,
     });
     if (response.status !== 202) {
       throw new Error(

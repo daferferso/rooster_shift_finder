@@ -11,6 +11,9 @@ export interface Config {
   enableLogs: boolean;
   extensionPath: string;
   timeOutElements: number;
+  timeOutResponse: number;
+  maxRetryNumber: number;
+  maxIterToRelogin: number;
   conditions: Condition[];
   selectors: CssSelectors;
   headers: Headers;
@@ -81,4 +84,18 @@ export interface ShiftJson {
 
 export interface Dates {
   [date: string]: ElementHandle<Element>;
+}
+
+export class ProxyBannedError extends Error {
+  constructor(message: string = "The proxy was banned") {
+    super(message);
+    this.name = "ProxyBannedError";
+  }
+}
+
+export class MaxRetryNumberError extends Error {
+  constructor() {
+    super();
+    this.name = "MaxRetryNumberError";
+  }
 }

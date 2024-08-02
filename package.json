@@ -14,7 +14,9 @@
   "description": "",
   "dependencies": {
     "@prisma/client": "^5.17.0",
+    "https-proxy-agent": "^7.0.5",
     "moment-timezone": "^0.5.45",
+    "node-fetch-commonjs": "^3.3.2",
     "puppeteer": "^22.13.0",
     "winston": "^3.13.1"
   },

@@ -12,7 +12,10 @@ const defaultConfig: Config = {
   useProxy: false,
   enableLogs: false,
   extensionPath: `${path.join(process.cwd(), "utils/extension")}`,
-  timeOutElements: 150,
+  timeOutElements: 30000,
+  timeOutResponse: 60000,
+  maxRetryNumber: 5,
+  maxIterToRelogin: 7000,
   conditions: [
     {
       startDate: new Date().toISOString().substring(0, 10),

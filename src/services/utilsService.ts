@@ -79,11 +79,7 @@ export const parseDateTimeShift = async (
   shift: ShiftJson,
   tz: string
 ): Promise<{ startShift: Moment; endShift: Moment }> => {
-  const startShift = shift.start_at
-    ? moment.utc(shift.start_at).tz(tz)
-    : moment.tz(shift.start, tz);
-  const endShift = shift.end_at
-    ? moment.utc(shift.end_at).tz(tz)
-    : moment.tz(shift.end, tz);
+  const startShift = moment.tz(shift.start, tz);
+  const endShift = moment.tz(shift.end, tz);
   return { startShift, endShift };
 };
