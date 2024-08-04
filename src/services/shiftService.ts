@@ -1,7 +1,7 @@
 // Here we need to handle everything about shift (filter, take)
 
 import { HTTPRequest, HTTPResponse } from "puppeteer-core";
-import { Config, ShiftJson } from "../interfaces/interface";
+import { Config, ShiftJson, UserMod } from "../interfaces/interface";
 import moment, { Duration, Moment } from "moment-timezone";
 import { User } from "@prisma/client";
 import { saveShift } from "./dataService";
@@ -20,20 +20,22 @@ let token = "";
 export const handleRequest = async (
   req: HTTPRequest,
   config: Config,
+  user: User,
   uniqueZoneIds: string,
   logger: Logger
 ) => {
+  // This function intercept requests to mockup
   try {
     const url = req.url();
     let newUrl: string | undefined = undefined;
 
     if (url.includes("available_unassigned_shifts")) {
       token = req.headers()["authorization"] ?? "";
-      newUrl = await mockupUnassignedUrl(url, config, uniqueZoneIds);
+      newUrl = await mockupUnassignedUrl(url, config, user, uniqueZoneIds);
     }
     if (url.includes("available_swaps")) {
       token = req.headers()["authorization"] ?? "";
-      newUrl = await mockupSwapUrl(url, config, uniqueZoneIds);
+      newUrl = await mockupSwapUrl(url, config, user, uniqueZoneIds);
     }
     if (newUrl) {
       req.continue({ url: newUrl });
@@ -54,6 +56,7 @@ export const handleResponse = async (
   proxyAgent: Agent,
   logger: Logger
 ) => {
+  // This function intercept responses to get shifts from json data
   const url = res.url();
   const method = res.request().method();
 
@@ -88,14 +91,14 @@ export const handleResponse = async (
 const handleShifts = async (
   shifts: ShiftJson[],
   swap = false,
-  user: User,
+  user: UserMod,
   config: Config,
   token: string,
   proxyAgent: Agent,
   logger: Logger
 ) => {
-  // const shiftTaked: ShiftJson[] = [];
-  const tz = "America/La_Paz";
+  // This function handle all shifts process, from evaluate & take them
+  const tz = user?.Country?.timezone ?? "";
   if (!shifts) return false;
   for (const condition of config.conditions) {
     const {
@@ -167,6 +170,7 @@ const evalDuration = async (
   diffShift: Duration,
   minTime: Duration
 ): Promise<boolean> => {
+  // Evalute if shift is higher than min time
   if (diffShift.asMinutes() < minTime.asMinutes()) return false;
   return true;
 };
@@ -177,6 +181,7 @@ const evalDate = async (
   startShift: Moment,
   endShift: Moment
 ): Promise<boolean> => {
+  // Evaluate if shift is between startDate & endDate condition
   if (
     !(
       startDateFilter.isSameOrBefore(startShift, "day") &&
@@ -193,6 +198,7 @@ const evalTime = async (
   startTimeFilter: Moment,
   endTimeFilter: Moment
 ): Promise<boolean> => {
+  // Evaluate if shift is between startTime & endTime condition
   const startTimeCondition = startShift.clone().startOf("day").add({
     hours: startTimeFilter.hours(),
     minutes: startTimeFilter.minutes(),
@@ -242,6 +248,7 @@ const fetchTakeShift = async (
   proxyAgent: Agent,
   logger: Logger
 ): Promise<boolean> => {
+  // Fetch request to take the shift if it's type "Unassigned"
   const shift_id = shift.id ? shift.id : shift.shift_id;
   let url = `https://bo.usehurrier.com/api/rooster/v2/unassigned_shifts/${shift_id}/assign`;
   let startShift = start.tz("UTC").toISOString();
@@ -286,6 +293,7 @@ const fetchTakeSwapShift = async (
   proxyAgent: Agent,
   logger: Logger
 ): Promise<boolean> => {
+  // Fetch request to take the shift if it's type "Swap"
   const shift_id = shift.id ? shift.id : shift.shift_id;
   let url = `https://bo.usehurrier.com/api/rooster/v2/shifts/${shift_id}/swap`;
   let headers = { ...config.headers };

@@ -1,8 +1,8 @@
 // Here we need to handle database connection and save data functions
 
-import { PrismaClient, Proxy, User, Zone } from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 import path from "path";
-import { ShiftJson } from "../interfaces/interface";
+import { ShiftJson, UserMod } from "../interfaces/interface";
 
 export const prisma = new PrismaClient({
   log: [],
@@ -13,29 +13,19 @@ export const prisma = new PrismaClient({
   },
 });
 
-export const getUser = async (): Promise<User | null | undefined> => {
+export const getUser = async (): Promise<UserMod | null | undefined> => {
   // Get User from db
-  const user: User | null | undefined = await prisma.user.findFirst();
+  const user: User | null | undefined = await prisma.user.findFirst({
+    include: {
+      Country: true,
+      proxies: true,
+    },
+  });
   return user;
 };
 
-export const getZones = async (): Promise<Zone[] | null | undefined> => {
-  // Get User from db
-  const zones: Zone[] | null | undefined = await prisma.zone.findMany();
-  if (!zones) return;
-  return zones;
-};
-
-export const getProxies = async (
-  user: User
-): Promise<Proxy[] | null | undefined> => {
-  const proxies: Proxy[] | null | undefined = await prisma.proxy.findMany({
-    where: { userId: user.id },
-  });
-  return proxies;
-};
-
 export const saveShift = async (shift: ShiftJson, user: User) => {
+  // Insert shift into db
   await prisma.shift.create({
     data: {
       id: shift.id,

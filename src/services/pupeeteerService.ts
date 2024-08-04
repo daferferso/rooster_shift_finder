@@ -7,6 +7,7 @@ import { sleep } from "./utilsService";
 import { Logger } from "winston";
 
 export async function getPage(config: Config): Promise<Page> {
+  // This function return a new Page with all settings from config.json
   const iPhone = KnownDevices["Galaxy S9+"];
   const browser: Browser = await puppeteer.launch({
     executablePath: config.browserPath,
@@ -28,8 +29,10 @@ export async function getPage(config: Config): Promise<Page> {
 }
 
 export const clearDataBrowser = async (page: Page, logger: Logger) => {
+  // This function clear all data Chrome Browser using KeyEvents
   logger.info("Cleaning data");
   await page.goto("chrome://settings/clearBrowserData");
+  
   for (let i = 0; i < 5; i++) {
     await page.keyboard.press("Tab");
     await sleep(300);

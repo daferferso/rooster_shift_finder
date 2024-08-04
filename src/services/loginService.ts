@@ -25,6 +25,7 @@ export const handleLogin = async (
 };
 
 export const checkIfLogged = async (page: Page) => {
+  // Check if the account is still connected by verifying the existing token
   const token: string | null = await page.evaluate(() => {
     return localStorage.getItem("token");
   });

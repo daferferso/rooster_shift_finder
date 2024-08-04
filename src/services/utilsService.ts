@@ -1,15 +1,18 @@
 import moment, { Moment } from "moment-timezone";
-import { Condition, Config, ShiftJson } from "../interfaces/interface";
+import { Condition, Config, ShiftJson, UserMod } from "../interfaces/interface";
 
 export const sleep = async (ms: number) => {
+  // This is an util function to sleep expressions in milliseconds
   return await new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 export const mockupUnassignedUrl = async (
   url: string,
   config: Config,
+  user: UserMod,
   uniqueZoneIds: string
 ): Promise<string> => {
+  // This function mockup the URL from request intercepted & return with new QueryParams
   let newUrl = url.split("?")[0];
   const params = {
     starting_point_ids: uniqueZoneIds,
@@ -19,7 +22,7 @@ export const mockupUnassignedUrl = async (
     order_by: "LONGEST_FIRST",
     only_high_demand: String(false),
     city_id: String(1),
-    with_time_zone: "America/La_Paz",
+    with_time_zone: user.Country?.timezone?? "",
   };
   const queryString = new URLSearchParams(params).toString();
   return `${newUrl}?${queryString}`;
@@ -28,8 +31,10 @@ export const mockupUnassignedUrl = async (
 export const mockupSwapUrl = async (
   url: string,
   config: Config,
+  user: UserMod,
   uniqueZoneIds: string
 ): Promise<string> => {
+  // This function mockup the URL from request intercepted & return with new QueryParams
   const day: Moment = moment(config.startDay);
   let newUrl = url.split("?")[0];
   const startAt = day.clone().toISOString();
@@ -43,7 +48,7 @@ export const mockupSwapUrl = async (
     end_at: endAt,
     starting_point_ids: uniqueZoneIds,
     city_id: String(1),
-    with_time_zone: "America/La_Paz",
+    with_time_zone: user.Country?.timezone?? "",
   };
   const queryString = new URLSearchParams(params).toString();
   return `${newUrl}?${queryString}`;
@@ -53,6 +58,7 @@ export const parseDateTimeCondition = async (
   condition: Condition,
   tz: string
 ) => {
+  // This function parse DateTime condition from config.json
   const startDateFilter = moment
     .tz(condition.startDate, "YYYY-MM-DD", tz)
     .startOf("day");
@@ -79,6 +85,7 @@ export const parseDateTimeShift = async (
   shift: ShiftJson,
   tz: string
 ): Promise<{ startShift: Moment; endShift: Moment }> => {
+  // This function parse Shift DateTime
   const startShift = moment.tz(shift.start, tz);
   const endShift = moment.tz(shift.end, tz);
   return { startShift, endShift };

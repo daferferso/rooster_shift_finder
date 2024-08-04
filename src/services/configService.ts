@@ -9,10 +9,9 @@ const defaultConfig: Config = {
   requestDelay: 0,
   startDay: new Date().toISOString().substring(0, 10),
   endDay: new Date().toISOString().substring(0, 10),
-  backFowardRefresh: false,
   extensionPath: `${path.join(process.cwd(), "utils/extension")}`,
   extensionUrl: "chrome-extension://ilommichiccmkhjghmjgmamnbocelocm",
-  browserPath: '',
+  browserPath: "",
   timeOutElements: 30000,
   timeOutResponse: 60000,
   conditions: [
@@ -63,6 +62,7 @@ const defaultConfig: Config = {
 };
 
 export const loadConfig = () => {
+  // This function load all config from config.json
   try {
     return JSON.parse(readFileSync("utils/config.json", { encoding: "utf-8" }));
   } catch (err) {

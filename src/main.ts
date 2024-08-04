@@ -2,42 +2,49 @@
 
 import winston, { Logger } from "winston";
 import { Page, ProtocolError } from "puppeteer-core";
-import { Proxy, User } from "@prisma/client";
+import { Proxy } from "@prisma/client";
 import {
   AccountNotLoggedError,
   Config,
   ProxyBannedError,
+  UserMod,
 } from "./interfaces/interface";
 import { loadConfig } from "./services/configService";
 import { clearDataBrowser, getPage } from "./services/pupeeteerService";
 import { handleLogin } from "./services/loginService";
 import { loopFinder } from "./services/loopService";
-import { getProxies, getUser } from "./services/dataService";
+import { getUser } from "./services/dataService";
 import {
   createProxyAgent,
   handleProxyConnection,
 } from "./services/proxyService";
 
 async function main() {
+  // This is the main function to initializate the program
+
   // Load config and initialize logger
   const config: Config = loadConfig();
   const logger: Logger = await createLogger(config);
   logger.info("Logger created successfull");
 
   // Get data from de DB
-  const user: User | null | undefined = await getUser();
-  if (!user) return;
-  let proxies: Proxy[] | null | undefined = await getProxies(user);
+  const user: UserMod | null | undefined = await getUser();
+  if (!user) {
+    logger.error(
+      "Before to start, you need to add Country, City, Zone, User, Proxy"
+    );
+    return;
+  }
+  let proxies: Proxy[] | null | undefined = user.proxies;
   if (!proxies || proxies.length === 0) return;
   logger.info(`Data getted successfull`);
-
 
   // Get instance of Page from Pupeeteer
   const page: Page = await getPage(config);
   logger.info("Page Chrome created successfull");
-  
-  // let maxIterToRelogin = 0;
+
   let logged = false;
+
   while (true) {
     const nextProxy = proxies.shift()!;
     const proxyAgent = await createProxyAgent(nextProxy);
@@ -66,6 +73,7 @@ async function main() {
 }
 
 async function createLogger(config: Config): Promise<Logger> {
+  // This function return a new Logger
   let loggerTransports = [
     new winston.transports.Console({
       format: winston.format.combine(

@@ -18,17 +18,23 @@ export const loopFinder = async (
   proxyAgent: Agent,
   logger: Logger
 ) => {
-  // Simple code to find shifts everytime
+  /*
+  Loop to get shifts every millisecond defined in config.requestDelay
+  & Intercept the responses from every requests
+  */
 
+  // Get all Zone Ids and concatenate in one list to mockup requests
   const allZoneIds: number[] = config.conditions.flatMap(
     (condition) => condition.placesId
   );
   const uniqueZoneIds: string = [...new Set(allZoneIds)].join(",");
 
+  // Get all dates and go to specific day & refresh Menu
   const dates: Dates = await getAllDays(page, config);
   await goToDay(dates[config.startDay.split("-")[2]]);
   await refreshMenu(page, config);
 
+  // Enable Intercept Requests & set a Promise to handle Requests & Responses error
   page.setRequestInterception(true);
 
   let rejectLoopFinder: (error: unknown) => void;
@@ -38,7 +44,7 @@ export const loopFinder = async (
 
   page.on("request", async (req) => {
     if (req.isInterceptResolutionHandled()) return;
-    await handleRequest(req, config, uniqueZoneIds, logger);
+    await handleRequest(req, config, user, uniqueZoneIds, logger);
   });
 
   page.on("response", async (res) => {
@@ -51,15 +57,11 @@ export const loopFinder = async (
   });
 
   while (true) {
+    // Loop to get new shifts
     try {
-      await checkIfLogged(page),
-        await Promise.race([sleep(config.requestDelay), responsePromise]);
-
-      if (!config.backFowardRefresh) {
-        await refreshMenu(page, config);
-      } else {
-        await refreshBackAndForward(page);
-      }
+      await checkIfLogged(page);
+      await Promise.race([sleep(config.requestDelay), responsePromise]);
+      await refreshBackAndForward(page);
     } catch (error) {
       logger.error("Error during loop execution:", error);
       throw error;
