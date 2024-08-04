@@ -1,9 +1,9 @@
 // Here we need to handle all about login
 
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { User } from "@prisma/client";
 import { login, validateLogin } from "../scripts/loginAccount";
-import { Config } from "../interfaces/interface";
+import { AccountNotLoggedError, Config } from "../interfaces/interface";
 import { Logger } from "winston";
 
 export const handleLogin = async (
@@ -22,4 +22,11 @@ export const handleLogin = async (
   logger.info(`Login successfull - ${user.email}`);
 
   await page.reload();
+};
+
+export const checkIfLogged = async (page: Page) => {
+  const token: string | null = await page.evaluate(() => {
+    return localStorage.getItem("token");
+  });
+  if (!token) throw new AccountNotLoggedError();
 };

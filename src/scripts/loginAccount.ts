@@ -1,5 +1,5 @@
 import { User } from "@prisma/client";
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { Config } from "../interfaces/interface";
 
 export const login = async (page: Page, user: User, config: Config) => {

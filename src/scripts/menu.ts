@@ -1,4 +1,4 @@
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { Config } from "../interfaces/interface";
 
 export const refreshMenu = async (page: Page, config: Config) => {

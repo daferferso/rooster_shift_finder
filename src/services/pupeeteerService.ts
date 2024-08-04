@@ -1,14 +1,15 @@
 // Here we need to handle the initial instance to run Chrome Browser
 
-import puppeteer, { Browser, Page, PuppeteerError } from "puppeteer";
+import puppeteer, { Browser, Page,  } from "puppeteer-core";
 import { Config } from "../interfaces/interface";
-import { KnownDevices } from "puppeteer";
+import { KnownDevices } from "puppeteer-core";
 import { sleep } from "./utilsService";
 import { Logger } from "winston";
 
 export async function getPage(config: Config): Promise<Page> {
   const iPhone = KnownDevices["Galaxy S9+"];
   const browser: Browser = await puppeteer.launch({
+    executablePath: config.browserPath,
     protocolTimeout: config.timeOutResponse,
     headless: false,
     defaultViewport: { width: 400, height: 650, isMobile: true },

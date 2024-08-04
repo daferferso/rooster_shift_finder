@@ -1,19 +1,15 @@
 // Here we need to handle an infinity loop to search shifts
 
-import { Page, ProtocolError } from "puppeteer";
-import {
-  Config,
-  Dates,
-  MaxRetryNumberError,
-  ProxyBannedError,
-} from "../interfaces/interface";
-import { Proxy, User, Zone } from "@prisma/client";
+import { Page } from "puppeteer-core";
+import { Config, Dates, ProxyBannedError } from "../interfaces/interface";
+import { User } from "@prisma/client";
 import { handleRequest, handleResponse } from "./shiftService";
 import { refreshMenu, refreshBackAndForward } from "../scripts/menu";
 import { getAllDays, goToDay } from "../scripts/days";
 import { sleep } from "./utilsService";
 import { Logger } from "winston";
 import { Agent } from "http";
+import { checkIfLogged } from "./loginService";
 
 export const loopFinder = async (
   page: Page,
@@ -47,35 +43,26 @@ export const loopFinder = async (
 
   page.on("response", async (res) => {
     try {
-      if (res.status() === 429) throw new ProxyBannedError();
+      if (res.status() != 200) throw new ProxyBannedError();
       await handleResponse(res, user, config, proxyAgent, logger);
     } catch (error) {
       rejectLoopFinder(error); // Reject the promise to propagate the error
     }
   });
 
-  let currentRetry = 0;
-  let maxIterToRelogin = 0;
-
   while (true) {
     try {
-      await Promise.race([
-        sleep(config.requestDelay),
-        responsePromise, // Race the sleep and responsePromise to propagate errors immediately
-      ]);
+      await checkIfLogged(page),
+        await Promise.race([sleep(config.requestDelay), responsePromise]);
 
-      await refreshBackAndForward(page);
-
-      maxIterToRelogin++;
-      if (maxIterToRelogin >= config.maxIterToRelogin) return;
+      if (!config.backFowardRefresh) {
+        await refreshMenu(page, config);
+      } else {
+        await refreshBackAndForward(page);
+      }
     } catch (error) {
       logger.error("Error during loop execution:", error);
-      if (error instanceof ProxyBannedError || ProtocolError) {
-        throw error; // Propagate specific error to be handled in main
-      }
-      if (currentRetry >= config.maxRetryNumber) return;
-      await page.reload();
-      currentRetry++;
+      throw error;
     }
   }
 };

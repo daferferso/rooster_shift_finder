@@ -1,19 +1,18 @@
-import { Zone } from "@prisma/client";
-import { Moment } from "moment-timezone";
-import { ElementHandle } from "puppeteer";
+// Here we need to set all Interfaces or classes to define the type.
+
+import { ElementHandle } from "puppeteer-core";
 
 export interface Config {
   log: boolean;
   requestDelay: number;
   startDay: string;
   endDay: string;
-  useProxy: boolean;
-  enableLogs: boolean;
+  backFowardRefresh: boolean;
   extensionPath: string;
+  extensionUrl: string;
+  browserPath: string;
   timeOutElements: number;
   timeOutResponse: number;
-  maxRetryNumber: number;
-  maxIterToRelogin: number;
   conditions: Condition[];
   selectors: CssSelectors;
   headers: Headers;
@@ -97,5 +96,12 @@ export class MaxRetryNumberError extends Error {
   constructor() {
     super();
     this.name = "MaxRetryNumberError";
+  }
+}
+
+export class AccountNotLoggedError extends Error {
+  constructor(message: string = "The token was not found") {
+    super(message);
+    this.name = "AccountNotLoggedError";
   }
 }

@@ -1,6 +1,6 @@
 // This is a script to go to specific day in the web app
 
-import { ElementHandle, Page } from "puppeteer";
+import { ElementHandle, Page } from "puppeteer-core";
 import { Config, Dates } from "../interfaces/interface";
 
 export const getAllDays = async (

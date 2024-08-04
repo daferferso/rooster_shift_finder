@@ -1,7 +1,7 @@
 // Here we need to handle everything about shift (filter, take)
 
-import { HTTPRequest, HTTPResponse } from "puppeteer";
-import { Config, ProxyBannedError, ShiftJson } from "../interfaces/interface";
+import { HTTPRequest, HTTPResponse } from "puppeteer-core";
+import { Config, ShiftJson } from "../interfaces/interface";
 import moment, { Duration, Moment } from "moment-timezone";
 import { User } from "@prisma/client";
 import { saveShift } from "./dataService";
@@ -63,8 +63,7 @@ export const handleResponse = async (
     if (contentType && contentType.includes("application/json")) {
       if (url.includes("available_unassigned_shifts")) {
         const data = await res.json();
-        logger.info(res.status());
-        logger.info(`Shifts: ${data.content.length}`);
+        logger.info(`STATUS: ${res.status()} | Shift: ${data.content.length}`);
         await handleShifts(
           data.content,
           false,
@@ -76,8 +75,7 @@ export const handleResponse = async (
         );
       } else if (url.includes("available_swaps")) {
         const data = await res.json();
-        logger.info(res.status());
-        logger.info(`Swaps: ${data.length}`);
+        logger.info(`STATUS: ${res.status()} | Swaps: ${data.length}`);
         await handleShifts(data, true, user, config, token, proxyAgent, logger);
       }
     }
@@ -156,13 +154,11 @@ const handleShifts = async (
 
       if (shiftResult) {
         logger.info(`Shift taked - ${user.email}`);
-        // shiftTaked.push(shift);
         await saveShift(shift, user);
         return;
       } else {
         logger.info(`Shift lost - ${user.email}`);
       }
-      // return shiftResult;
     }
   }
 };
@@ -275,12 +271,11 @@ const fetchTakeShift = async (
       );
     }
     logger.info(`Assigning Shift - Code - ${response.status} - ${user.email}`);
-    return true;
   } catch (error) {
     logger.error(`Error al tomar turno ${error}`);
     return false;
   }
-  // return true;
+  return true;
 };
 
 const fetchTakeSwapShift = async (
@@ -309,9 +304,9 @@ const fetchTakeSwapShift = async (
       );
     }
     logger.debug(`Assigning Swap - Code - ${response.status} - ${user.email}`);
-    return true;
   } catch (error) {
     logger.error(error);
     return false;
   }
+  return true;
 };

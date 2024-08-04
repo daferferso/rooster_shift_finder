@@ -9,13 +9,12 @@ const defaultConfig: Config = {
   requestDelay: 0,
   startDay: new Date().toISOString().substring(0, 10),
   endDay: new Date().toISOString().substring(0, 10),
-  useProxy: false,
-  enableLogs: false,
+  backFowardRefresh: false,
   extensionPath: `${path.join(process.cwd(), "utils/extension")}`,
+  extensionUrl: "chrome-extension://ilommichiccmkhjghmjgmamnbocelocm",
+  browserPath: '',
   timeOutElements: 30000,
   timeOutResponse: 60000,
-  maxRetryNumber: 5,
-  maxIterToRelogin: 7000,
   conditions: [
     {
       startDate: new Date().toISOString().substring(0, 10),

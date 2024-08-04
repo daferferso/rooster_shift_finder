@@ -1,7 +1,7 @@
 // This script is use to connect a proxy using Chrome extension
 
 import { Proxy } from "@prisma/client";
-import { Page } from "puppeteer";
+import { Page } from "puppeteer-core";
 import { sleep } from "../services/utilsService";
 import { Logger } from "winston";
 
@@ -11,7 +11,7 @@ export const registerProxy = async (
   logger: Logger
 ) => {
   if (!proxy) return;
-  await closeFirstWindows(page);
+  await closeFirstWindows(page, logger);
   logger.info(`Registering new Proxy ${proxy.host}:${proxy.port}`);
   await page.waitForSelector("#body");
   await page.evaluate(() => {
@@ -55,12 +55,12 @@ const writeText = (selector: any, text: string) => {
   }
 };
 
-const closeFirstWindows = async (page: Page) => {
+const closeFirstWindows = async (page: Page, logger: Logger) => {
   try {
     await sleep(500);
     await page.click("#btnCancel");
   } catch (error) {
-    console.log("Not found btnCancel");
+    logger.error("Not found btnCancel");
     return;
   }
 };
