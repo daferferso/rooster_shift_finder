@@ -15,7 +15,9 @@ bin/
 **/.DS_Store
 
 # Puppeteer-specific
-utils/
+# utils/
+utils/**/*.db
+
 .puppeteer_dev
 
 # Env files
