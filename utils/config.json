@@ -1,6 +1,6 @@
 {
   "log": true,
-  "requestDelay": 500,
+  "requestDelay": 2100,
   "startDay": "2024-08-06",
   "endDay": "2024-08-06",
   "extensionPath": "C:\\Users\\Zenith\\Desktop\\rooster_shift_finder\\utils\\extension",
@@ -49,7 +49,7 @@
   "headers": {
     "accept": "application/json, text/plain, */*",
     "accept-language": "es-419,es;q=0.5",
-    "baggage": "",
+    "baggage": "Get this info intercepting webpage https://bo.usehurrier.com/app/rooster/web/login requests",
     "client-version": "v2.80.80-release",
     "content-type": "application/json",
     "priority": "u=1, i",
@@ -60,8 +60,8 @@
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
     "sec-gpc": "1",
-    "sentry-trace": "",
-    "cookie": "",
+    "sentry-trace": "Get this info intercepting webpage https://bo.usehurrier.com/app/rooster/web/login requests",
+    "cookie": "Get this info intercepting webpage https://bo.usehurrier.com/app/rooster/web/login requests",
     "Referrer-Policy": "strict-origin-when-cross-origin"
   }
 }
