@@ -15,14 +15,12 @@ bin/
 **/.DS_Store
 
 # Puppeteer-specific
-# utils/
-utils/**/*.db
-
 .puppeteer_dev
 
-# Env files
-# .env
-# .env.template
+# Prisma files
+prisma/migrations/
+utils/**/*.db
+utils/**/*.db-journal
 
 # Log files
 app.log
