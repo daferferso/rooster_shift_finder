@@ -15,12 +15,14 @@ bin/
 **/.DS_Store
 
 # Puppeteer-specific
-utils/
+# utils/
+utils/**/*.db
+
 .puppeteer_dev
 
 # Env files
-.env
-.env.template
+# .env
+# .env.template
 
 # Log files
 app.log

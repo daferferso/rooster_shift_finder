@@ -1,0 +1,67 @@
+{
+  "log": true,
+  "requestDelay": 500,
+  "startDay": "2024-08-06",
+  "endDay": "2024-08-06",
+  "extensionPath": "C:\\Users\\Zenith\\Desktop\\rooster_shift_finder\\utils\\extension",
+  "extensionUrl": "chrome-extension://ilommichiccmkhjghmjgmamnbocelocm",
+  "browserPath": "C:\\Program Files\\BraveSoftware\\Brave-Browser\\Application\\brave.exe",
+  "timeOutElements": 30000,
+  "timeOutResponse": 20000,
+  "conditions": [
+    {
+      "startDate": "2024-08-08",
+      "endDate": "2024-08-08",
+      "startTime": "19:00:00",
+      "endTime": "01:00:00",
+      "minTime": {
+        "hours": 6,
+        "minutes": 0
+      },
+      "placesId": [48]
+    },
+    {
+      "startDate": "2024-08-08",
+      "endDate": "2024-08-08",
+      "startTime": "11:00:00",
+      "endTime": "13:30:00",
+      "minTime": {
+        "hours": 2,
+        "minutes": 0
+      },
+      "placesId": [2]
+    }
+  ],
+  "selectors": {
+    "emailInput": "#app > div.Login__StyledContainer-EIyCN.hOPUnB > form > div > div:nth-child(1) > input",
+    "passwordInput": "#app > div.Login__StyledContainer-EIyCN.hOPUnB > form > div > div:nth-child(2) > input",
+    "loginButton": "#app > div.Login__StyledContainer-EIyCN.hOPUnB > form > button",
+    "pageTitle": "#app > div.Y_H7dxviaGWF8ClZOdze > div > header > div > div.No9IbYC1L1JdgIlAPE0R",
+    "shiftsPanel": "#app > div.Y_H7dxviaGWF8ClZOdze > div > div.uSWxsCRpZKLcGVs6a7YQ > div > div.cOWIDMF8UbrRpI6N7npl > div > div.L_I3pXDJRKAtG8_Xex8j > div.WhmgCDYM0M8cdsoOfskc",
+    "shiftButtons": "#app > div.Y_H7dxviaGWF8ClZOdze > div > div.uSWxsCRpZKLcGVs6a7YQ > div > div.cOWIDMF8UbrRpI6N7npl > div > div.L_I3pXDJRKAtG8_Xex8j > div > div > article > div.EzY56c3ysV9cTZrUKsds > div > button",
+    "shiftBoxes": "#app > div.Y_H7dxviaGWF8ClZOdze > div > div.uSWxsCRpZKLcGVs6a7YQ > div > div.cOWIDMF8UbrRpI6N7npl > div > div.L_I3pXDJRKAtG8_Xex8j > div > div > article > div.EzY56c3ysV9cTZrUKsds",
+    "menuFromAvailableTimes": "#app > div.Y_H7dxviaGWF8ClZOdze > div > header > div > div.o9zFWFWLuvwCbmWwEiEw > button",
+    "menuFromMyProfile": "#app > div:nth-child(3) > header > div > div.o9zFWFWLuvwCbmWwEiEw > button",
+    "myProfile": "#app > div.DrawerWrapperStyled__DrawerStyled-jiHDjs.bjfxRn > div > div > div > div > a:nth-child(7)",
+    "myAvailableTimes": "#app > div.DrawerWrapperStyled__DrawerStyled-jiHDjs.bjfxRn > div > div > div > div > a:nth-child(2)",
+    "buttonDays": "#weekSliderContainer > button"
+  },
+  "headers": {
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "es-419,es;q=0.5",
+    "baggage": "",
+    "client-version": "v2.80.80-release",
+    "content-type": "application/json",
+    "priority": "u=1, i",
+    "sec-ch-ua": "\"Brave\";v=\"125\", \"Chromium\";v=\"125\", \"Not.A/Brand\";v=\"24\"",
+    "sec-ch-ua-mobile": "?1",
+    "sec-ch-ua-platform": "\"Android\"",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-origin",
+    "sec-gpc": "1",
+    "sentry-trace": "",
+    "cookie": "",
+    "Referrer-Policy": "strict-origin-when-cross-origin"
+  }
+}
