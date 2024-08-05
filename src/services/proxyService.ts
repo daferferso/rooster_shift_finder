@@ -7,6 +7,7 @@ import { Logger } from "winston";
 import { HttpsProxyAgent } from "https-proxy-agent";
 import { Agent } from "http";
 import { Config } from "../interfaces/interface";
+import { sleep } from "./utilsService";
 
 export const handleProxyConnection = async (
   proxy: Proxy,
@@ -18,11 +19,20 @@ export const handleProxyConnection = async (
   logger.info("Handling proxies");
   const page = await browser.newPage();
 
-  await page.goto(`${config.extensionUrl}/options.html`);
-  await registerProxy(page, proxy, logger);
+  try {
+    await page.goto(`${config.extensionUrl}/options.html`);
+    await registerProxy(page, proxy, logger);
 
-  await page.goto(`${config.extensionUrl}/popup.html`);
-  await activateProxy(page, proxy, logger);
+    await page.goto(`${config.extensionUrl}/popup.html`);
+    await activateProxy(page, proxy, logger);
+  } catch (error) {
+    logger.error(error);
+    logger.info(
+      "You have 60 seconds to get extension URL and save in config.json"
+    );
+    await sleep(60000);
+    throw error;
+  }
 
   try {
     await page.close();

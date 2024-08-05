@@ -31,7 +31,8 @@ model Proxy {
 }
 
 model Shift {
-  id      Int      @id
+  id      Int      @id @default(autoincrement())
+  shiftId Int?
   startAt DateTime
   endAt   DateTime
   User    User     @relation(fields: [userId], references: [id])

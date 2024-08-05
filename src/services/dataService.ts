@@ -28,7 +28,7 @@ export const saveShift = async (shift: ShiftJson, user: User) => {
   // Insert shift into db
   await prisma.shift.create({
     data: {
-      id: shift.id,
+      shiftId: shift.id,
       startAt: new Date(shift.start),
       endAt: new Date(shift.end),
       userId: user.id,

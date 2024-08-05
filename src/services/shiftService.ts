@@ -155,13 +155,8 @@ const handleShifts = async (
         );
       }
 
-      if (shiftResult) {
-        logger.info(`Shift taked - ${user.email}`);
-        await saveShift(shift, user);
-        return;
-      } else {
-        logger.info(`Shift lost - ${user.email}`);
-      }
+      if (!shiftResult) continue;
+      return await saveShift(shift, user);
     }
   }
 };
@@ -274,12 +269,14 @@ const fetchTakeShift = async (
     });
     if (response.status !== 202) {
       throw new Error(
-        `Assigning Shift - Code - ${response.status} - ${user.email}`
+        `Assigning Shift - Code - ${response.status} - ${user.email} - ${shift_id}`
       );
     }
-    logger.info(`Assigning Shift - Code - ${response.status} - ${user.email}`);
+    logger.info(
+      `Assigning Shift - Code - ${response.status} - ${user.email} - ${shift_id}`
+    );
   } catch (error) {
-    logger.error(`Error al tomar turno ${error}`);
+    logger.error(`Error to take shift - ${error}`);
     return false;
   }
   return true;
@@ -308,12 +305,14 @@ const fetchTakeSwapShift = async (
     });
     if (response.status !== 202) {
       throw new Error(
-        `Assigning Swap - Code - ${response.status} - ${user.email}`
+        `Assigning Swap - Code - ${response.status} - ${user.email} - ${shift_id}`
       );
     }
-    logger.debug(`Assigning Swap - Code - ${response.status} - ${user.email}`);
+    logger.debug(
+      `Assigning Swap - Code - ${response.status} - ${user.email} - ${shift_id}`
+    );
   } catch (error) {
-    logger.error(error);
+    logger.error(`Error to take shift - ${error}`);
     return false;
   }
   return true;
