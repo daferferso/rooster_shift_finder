@@ -44,6 +44,7 @@ async function main() {
   logger.info("Page Chrome created successfull");
 
   let logged = false;
+  let needRefresh = true;
 
   while (true) {
     const nextProxy = proxies.shift()!;
@@ -56,12 +57,12 @@ async function main() {
         await handleLogin(page, user, config, logger);
         logged = true;
       }
-      await loopFinder(page, user, config, proxyAgent, logger);
+      await loopFinder(page, user, config, proxyAgent, logger, needRefresh);
     } catch (error) {
       logger.error(`An error in main loop ${error}`);
       if (error instanceof ProxyBannedError || ProtocolError) {
         await handleProxyConnection(nextProxy, page.browser(), config, logger);
-        await page.reload();
+        needRefresh = false
       }
       if (error instanceof AccountNotLoggedError) {
         await clearDataBrowser(page, logger);

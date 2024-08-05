@@ -16,12 +16,17 @@ export const loopFinder = async (
   user: User,
   config: Config,
   proxyAgent: Agent,
-  logger: Logger
+  logger: Logger,
+  needRefresh: boolean
 ) => {
   /*
   Loop to get shifts every millisecond defined in config.requestDelay
   & Intercept the responses from every requests
   */
+
+  // Remove all event handlers
+  page.removeAllListeners("request");
+  page.removeAllListeners("response");
 
   // Get all Zone Ids and concatenate in one list to mockup requests
   const allZoneIds: number[] = config.conditions.flatMap(
@@ -29,10 +34,12 @@ export const loopFinder = async (
   );
   const uniqueZoneIds: string = [...new Set(allZoneIds)].join(",");
 
-  // Get all dates and go to specific day & refresh Menu
-  const dates: Dates = await getAllDays(page, config);
-  await goToDay(dates[config.startDay.split("-")[2]]);
-  await refreshMenu(page, config);
+  // Check if need to refresh after change proxy then get all dates and go to specific day & refresh Menu
+  if (needRefresh) {
+    const dates: Dates = await getAllDays(page, config);
+    await goToDay(dates[config.startDay.split("-")[2]]);
+    await refreshMenu(page, config);
+  }
 
   // Enable Intercept Requests & set a Promise to handle Requests & Responses error
   page.setRequestInterception(true);
