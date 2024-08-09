@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-  id        Int     @id
-  email     String  @unique
-  password  String
-  shifts    Shift[]
-  proxies   Proxy[]
-  Country   Country @relation(fields: [countryId], references: [id])
-  countryId Int
+  id       Int     @id
+  email    String  @unique
+  password String
+  shifts   Shift[]
+  proxies  Proxy[]
+  City     City    @relation(fields: [cityId], references: [id])
+  cityId   Int
 }
 
 model Proxy {
@@ -53,8 +53,9 @@ model City {
   id        Int      @id
   name      String   @unique
   Zone      Zone[]
-  Country   Country? @relation(fields: [countryId], references: [id])
-  countryId Int?
+  Users     User[]
+  Country   Country @relation(fields: [countryId], references: [id])
+  countryId Int
 }
 
 model Country {
@@ -62,5 +63,4 @@ model Country {
   code     String @unique
   timezone String
   Cities   City[]
-  Users    User[]
 }

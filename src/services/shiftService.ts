@@ -3,7 +3,6 @@
 import { HTTPRequest, HTTPResponse } from "puppeteer-core";
 import { Config, ShiftJson, UserMod } from "../interfaces/interface";
 import moment, { Duration, Moment } from "moment-timezone";
-import { User } from "@prisma/client";
 import { saveShift } from "./dataService";
 import { Logger } from "winston";
 import {
@@ -20,7 +19,7 @@ let token = "";
 export const handleRequest = async (
   req: HTTPRequest,
   config: Config,
-  user: User,
+  user: UserMod,
   uniqueZoneIds: string,
   logger: Logger
 ) => {
@@ -51,7 +50,7 @@ export const handleRequest = async (
 
 export const handleResponse = async (
   res: HTTPResponse,
-  user: User,
+  user: UserMod,
   config: Config,
   proxyAgent: Agent,
   logger: Logger
@@ -98,7 +97,7 @@ const handleShifts = async (
   logger: Logger
 ) => {
   // This function handle all shifts process, from evaluate & take them
-  const tz = user?.Country?.timezone ?? "";
+  const tz = user.City.Country.timezone;
   if (!shifts) return false;
   for (const condition of config.conditions) {
     const {
@@ -237,7 +236,7 @@ const fetchTakeShift = async (
   shift: ShiftJson,
   start: Moment,
   end: Moment,
-  user: User,
+  user: UserMod,
   config: Config,
   token: string,
   proxyAgent: Agent,
@@ -284,7 +283,7 @@ const fetchTakeShift = async (
 
 const fetchTakeSwapShift = async (
   shift: ShiftJson,
-  user: User,
+  user: UserMod,
   config: Config,
   token: string,
   proxyAgent: Agent,
@@ -296,10 +295,11 @@ const fetchTakeSwapShift = async (
   let headers = { ...config.headers };
   headers.authorization = token;
   headers.Referer = "https://bo.usehurrier.com/app/rooster/web/shifts";
+  headers.mode = "cors";
+  headers.credentials  = "include";
   try {
     const response = await fetch(url, {
       headers: headers,
-      body: null,
       method: "PUT",
       agent: proxyAgent,
     });

@@ -21,8 +21,8 @@ export const mockupUnassignedUrl = async (
     end_hour: "23:59",
     order_by: "LONGEST_FIRST",
     only_high_demand: String(false),
-    city_id: String(1),
-    with_time_zone: user.Country?.timezone?? "",
+    city_id: String(user.City.id),
+    with_time_zone: user.City.Country.timezone,
   };
   const queryString = new URLSearchParams(params).toString();
   return `${newUrl}?${queryString}`;
@@ -47,8 +47,8 @@ export const mockupSwapUrl = async (
     start_at: startAt,
     end_at: endAt,
     starting_point_ids: uniqueZoneIds,
-    city_id: String(1),
-    with_time_zone: user.Country?.timezone?? "",
+    city_id: String(user.City.id),
+    with_time_zone: user.City.Country.timezone,
   };
   const queryString = new URLSearchParams(params).toString();
   return `${newUrl}?${queryString}`;

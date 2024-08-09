@@ -1,6 +1,6 @@
 // Here we need to handle the initial instance to run Chrome Browser
 
-import puppeteer, { Browser, Page,  } from "puppeteer-core";
+import puppeteer, { Browser, Page } from "puppeteer-core";
 import { Config } from "../interfaces/interface";
 import { KnownDevices } from "puppeteer-core";
 import { sleep } from "./utilsService";

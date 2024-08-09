@@ -44,7 +44,7 @@ const defaultConfig: Config = {
   headers: {
     accept: "application/json, text/plain, */*",
     "accept-language": "es-419,es;q=0.6",
-    baggage: "abc",
+    baggage: "Get this info intercepting webpage https://bo.usehurrier.com/app/rooster/web/login requests",
     "client-version": "abc",
     "content-type": "application/json",
     priority: "u=1, i",
@@ -55,8 +55,8 @@ const defaultConfig: Config = {
     "sec-fetch-mode": "cors",
     "sec-fetch-site": "same-origin",
     "sec-gpc": "1",
-    "sentry-trace": "abc",
-    cookie: "abc",
+    "sentry-trace": "Get this info intercepting webpage https://bo.usehurrier.com/app/rooster/web/login requests",
+    cookie: "Get this info intercepting webpage https://bo.usehurrier.com/app/rooster/web/login requests",
     "Referrer-Policy": "strict-origin-when-cross-origin",
   },
 };

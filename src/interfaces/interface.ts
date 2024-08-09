@@ -1,15 +1,22 @@
 // Here we need to set all Interfaces or classes to define the type.
 
 import { ElementHandle } from "puppeteer-core";
-import { Country, Proxy, User } from "@prisma/client";
+import { City, Country, Proxy, User } from "@prisma/client";
 
 export interface UserMod extends User {
   id: number;
   email: string;
   password: string;
+  cityId: number;
+  City: CityMod;
+  proxies?: Proxy[] | null;
+}
+
+export interface CityMod extends City {
+  id: number;
+  name: string;
   countryId: number;
-  Country?: Country;
-  proxies?: Proxy[],
+  Country: Country;
 }
 
 export interface Config {
@@ -46,6 +53,8 @@ export interface Headers {
   "Referrer-Policy": string;
   authorization?: string;
   Referer?: string;
+  mode?: string;
+  credentials?: string;
 }
 
 export interface CssSelectors {
