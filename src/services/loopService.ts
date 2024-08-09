@@ -1,8 +1,7 @@
 // Here we need to handle an infinity loop to search shifts
 
 import { Page } from "puppeteer-core";
-import { Config, Dates, ProxyBannedError } from "../interfaces/interface";
-import { User } from "@prisma/client";
+import { Config, Dates, ProxyBannedError, UserMod } from "../interfaces/interface";
 import { handleRequest, handleResponse } from "./shiftService";
 import { refreshMenu, refreshBackAndForward } from "../scripts/menu";
 import { getAllDays, goToDay } from "../scripts/days";
@@ -13,7 +12,7 @@ import { checkIfLogged } from "./loginService";
 
 export const loopFinder = async (
   page: Page,
-  user: User,
+  user: UserMod,
   config: Config,
   proxyAgent: Agent,
   logger: Logger,

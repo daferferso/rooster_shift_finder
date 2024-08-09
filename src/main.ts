@@ -28,7 +28,7 @@ async function main() {
   logger.info("Logger created successfull");
 
   // Get data from de DB
-  const user: UserMod | null | undefined = await getUser();
+  const user: UserMod  | null = await getUser();
   if (!user) {
     logger.error(
       "Before to start, you need to add Country, City, Zone, User, Proxy"

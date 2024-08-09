@@ -1,14 +1,13 @@
 // Here we need to handle all about login
 
 import { Page } from "puppeteer-core";
-import { User } from "@prisma/client";
 import { login, validateLogin } from "../scripts/loginAccount";
-import { AccountNotLoggedError, Config } from "../interfaces/interface";
+import { AccountNotLoggedError, Config, UserMod } from "../interfaces/interface";
 import { Logger } from "winston";
 
 export const handleLogin = async (
   page: Page,
-  user: User,
+  user: UserMod,
   config: Config,
   logger: Logger
 ) => {
