@@ -1,9 +1,9 @@
 {
   "name": "rooster_shift_finder",
   "version": "1.0.0",
-  "main": "./dist/main.js",
+  "main": "./dist/App.js",
   "scripts": {
-    "start": "tsc && node ./dist/main.js",
+    "start": "tsc && node ./dist/App.js",
     "build": "tsc && pkg .",
     "dev": "npm start",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,21 +13,18 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@prisma/client": "^5.17.0",
-    "https-proxy-agent": "^7.0.5",
+    "joi": "^17.13.3",
     "moment-timezone": "^0.5.45",
-    "node-fetch-commonjs": "^3.3.2",
     "puppeteer-core": "^22.15.0",
     "winston": "^3.13.1"
   },
   "devDependencies": {
     "@types/node": "^20.14.10",
     "@yao-pkg/pkg": "^5.12.0",
-    "prisma": "^5.17.0",
     "typescript": "^5.5.3"
   },
   "bin": {
-    "rooster_shift_finder": "./dist/main.js"
+    "rooster_shift_finder": "./dist/App.js"
   },
   "pkg": {
     "assets": [
