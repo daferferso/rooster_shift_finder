@@ -6,7 +6,7 @@ import { AuthService } from "./auth.service";
 import moment from "moment-timezone";
 import { mockupSwapUrl, mockupUnassignedUrl } from "./utils.service";
 import { ShiftService } from "./shift.service";
-import { ProxyBannedError } from "../errors/errors";
+import { AccountNotLoggedError, ProxyBannedError } from "../errors/errors";
 
 /**
  * Service class for managing the loop that checks for shifts and swaps.
@@ -83,9 +83,11 @@ export class LoopService {
    * Fetches unassigned shifts based on the provided request.
    *
    * @param {any} request - The request object containing the URL and headers.
-   * @returns {Promise<{ swap: boolean; data: Shift[] }>} The result containing the swap status and shift data.
+   * @returns {Promise<{ status: number; swap: boolean; data: Shift[] }>} The result containing the swap status and shift data.
    */
-  async getShifts(request: any): Promise<{ swap: boolean; data: Shift[] }> {
+  async getShifts(
+    request: any
+  ): Promise<{ status: number; swap: boolean; data: Shift[] }> {
     const result: { value: string; status: number } = await this.page.evaluate(
       async (request) => {
         const response = await fetch(request.url, {
@@ -96,24 +98,24 @@ export class LoopService {
       },
       request
     );
-    this.logger.info(
-      `SHIFT STATUS: ${result.status} | ${this.account.email} | SHIFT TAKED: ${this.account.shifts.length}`
-    );
+
     if (result.status == 200) {
       const data: any = JSON.parse(result.value);
-      this.logger.info(`SHIFT FOUND:  ${data.content.length}`);
-      return { swap: false, data: data.content };
+      return { status: result.status, swap: false, data: data.content };
     }
-    return { swap: false, data: [] };
+
+    return { status: result.status, swap: false, data: [] };
   }
 
   /**
    * Fetches swap shifts based on the provided request.
    *
    * @param {any} request - The request object containing the URL and headers.
-   * @returns {Promise<{ swap: boolean; data: Shift[] }>} The result containing the swap status and swap data.
+   * @returns {Promise<{ status: number; swap: boolean; data: Shift[] }>} The result containing the swap status and swap data.
    */
-  async getSwaps(request: any): Promise<{ swap: boolean; data: Shift[] }> {
+  async getSwaps(
+    request: any
+  ): Promise<{ status: number; swap: boolean; data: Shift[] }> {
     const result: { value: string; status: number } = await this.page.evaluate(
       async (request) => {
         const response = await fetch(request.url, {
@@ -124,16 +126,16 @@ export class LoopService {
       },
       request
     );
-    this.logger.info(
-      `SWAP STATUS:  ${result.status} | ${this.account.email} | SHIFT TAKED: ${this.account.shifts.length}`
-    );
+
     if (result.status == 200) {
       const data: any = JSON.parse(result.value);
-      this.logger.info(`SWAP FOUND:   ${data.length}`);
-      return { swap: true, data: data };
+      return { status: result.status, swap: true, data: data };
     }
+
     if (result.status == 429) throw new ProxyBannedError();
-    return { swap: true, data: [] };
+    if (result.status == 401) throw new AccountNotLoggedError();
+
+    return { status: result.status, swap: true, data: [] };
   }
 
   /**
@@ -171,6 +173,14 @@ export class LoopService {
 
           const shifts = await shiftsPromise;
           const swaps = await swapsPromise;
+
+          this.logger.info(
+            `SHIFT STATUS: ${shifts.status} | FOUND: ${shifts.data.length} | ${this.account.email} | SHIFT TAKED: ${this.account.shifts.length}`
+          );
+
+          this.logger.info(
+            `SWAP STATUS:  ${swaps.status} | FOUND: ${swaps.data.length} | ${this.account.email} | SHIFT TAKED: ${this.account.shifts.length}`
+          );
 
           shiftService.handleShifts(shifts.data, shifts.swap);
           shiftService.handleShifts(swaps.data, swaps.swap);
