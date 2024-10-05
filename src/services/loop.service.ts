@@ -19,6 +19,8 @@ export class LoopService {
   private authService: AuthService;
   public baseRequests: any;
   private requests: object | any;
+  public iterationCount: number = 0;
+  public iterationLimit: number = 7200000;
 
   /**
    * Constructs a LoopService instance.
@@ -161,6 +163,13 @@ export class LoopService {
     try {
       while (true) {
         try {
+          this.iterationCount++;
+
+          if (this.iterationCount >= this.iterationLimit) {
+            this.logger.info('Forcing login due to reaching 2 hours.')
+            await this.authService.deleteLocalStorageToLogout();
+          }
+
           await sleep(this.config.requestDelay);
           await this.authService.checkIfLogged();
 

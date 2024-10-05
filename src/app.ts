@@ -62,6 +62,8 @@ class App {
 
     const loopService = new LoopService(page, account, config, this.logger);
 
+    loopService.iterationLimit = Math.floor(7200000 / config.requestDelay)
+
     let logged = false;
 
     while (true) {
@@ -116,9 +118,10 @@ class App {
             break;
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
-            await this.browserService.clearDataBrowser(page);
+            // await this.browserService.clearDataBrowser(page);
             await authService.handleLogin(account);
             logged = true;
+            loopService.iterationCount = 0;
             break;
           default:
             this.logger.error(`Other type of error: ${error}`);

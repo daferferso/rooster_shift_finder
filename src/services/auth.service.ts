@@ -61,4 +61,10 @@ export class AuthService {
       throw new AccountNotLoggedError();
     }
   }
+
+  async deleteLocalStorageToLogout(): Promise<void> {
+    await this.page.evaluate(() => {
+      localStorage.clear();
+    });
+  }
 }
