@@ -7,10 +7,11 @@ import Joi from "joi";
  * or is invalid in the file.
  */
 const defaultConfig: Config = {
+  debugFile: false,
   requestDelay: 3000,
-  extensionPath: "",
-  extensionUrl: "",
-  browserPath: "",
+  extensionPath: "modify_this_part\\utils\\extension",
+  extensionUrl: "chrome-extension://cpmhjliddapgdeodmklfbibnchacikpl",
+  browserPath: "modify_this_part\\Application\\chrome.exe",
   timeOutElements: 20000,
   timeOutResponse: 20000,
   selectors: {
@@ -26,6 +27,7 @@ const defaultConfig: Config = {
  * Ensures that configuration values are of the correct type and meet specified requirements.
  */
 const configSchema = Joi.object({
+  debugFile: Joi.boolean().required(),
   requestDelay: Joi.number().integer().min(0).required(),
   extensionPath: Joi.string().required(),
   extensionUrl: Joi.string().required(),
@@ -42,8 +44,25 @@ const configSchema = Joi.object({
 
 /**
  * Service class for loading and validating configuration settings.
+ *
+ * This class reads configuration settings from a JSON file upon instantiation
+ * and stores them in a public `config` attribute, making them easily accessible
+ * throughout the application. If the configuration file is missing or invalid,
+ * a default configuration is saved and loaded.
  */
 export class ConfigService {
+  public config: Config;
+
+  /**
+   * Initializes the ConfigService instance by loading the configuration settings.
+   *
+   * If the configuration file is missing or invalid, a default configuration
+   * is generated and stored.
+   */
+  constructor() {
+    this.config = this.loadConfig();
+  }
+
   /**
    * Loads the configuration from a JSON file.
    * If the configuration file is not found or is invalid, the default configuration is saved and returned.

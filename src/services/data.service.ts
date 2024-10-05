@@ -7,16 +7,16 @@ import Joi from "joi";
  * or is invalid in the file.
  */
 const defaultAccount: Account = {
-  id: 1,
-  email: "",
-  password: "",
+  id: 12345,
+  email: "test@gmail.com",
+  password: "test123",
   country: {
-    code: "",
+    code: "bo",
     cityId: 1,
-    tz: "",
+    tz: "America/La_Paz",
   },
   useProxy: false,
-  proxies: [""],
+  proxies: ["host:port"],
   schedule: {
     start: new Date().toISOString().substring(0, 10),
     end: new Date().toISOString().substring(0, 10),

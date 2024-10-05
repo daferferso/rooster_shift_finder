@@ -33,6 +33,7 @@ export interface Data {
  * Configuration settings for the application, including paths, delays, and timeouts.
  */
 export interface Config {
+  debugFile: boolean;
   requestDelay: number;
   extensionPath: string;
   extensionUrl: string;

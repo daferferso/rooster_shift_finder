@@ -1,10 +1,10 @@
 {
   "account": {
-    "id": 1,
-    "email": "",
-    "password": "",
+    "id": 12345,
+    "email": "test@gmail.com",
+    "password": "test123",
     "country": {
-      "code": "",
+      "code": "bo",
       "cityId": 1,
       "tz": "America/La_Paz"
     },
@@ -13,13 +13,13 @@
       "host:port"
     ],
     "schedule": {
-      "start": "2024-09-23",
-      "end": "2024-09-23"
+      "start": "2024-10-05",
+      "end": "2024-10-05"
     },
     "conditions": [
       {
-        "startDate": "2024-09-23",
-        "endDate": "2024-09-23",
+        "startDate": "2024-10-05",
+        "endDate": "2024-10-05",
         "startTime": "07:00:00",
         "endTime": "03:00:00",
         "minTime": {

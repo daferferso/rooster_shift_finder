@@ -19,6 +19,7 @@ This project automates the scheduling of shifts on the website [https://bo.usehu
 
 You must configure the config.json file before running the program. Below is an explanation of each field:
 
+- **debugFile:** If you want to generate a log file.
 - **requestDelay:** Delay (in milliseconds) between requests for shifts.
 - **extensionPath:** Path to the ProxySharp extension.
 - **extensionUrl:** URL of the extension. It can change when the browser is reopened, so you may need to update it each time.
@@ -31,6 +32,7 @@ Example config.json:
 
 ```json
 {
+  "debugFile": false,
   "requestDelay": 2500,
   "extensionPath": "modify_this_part\\utils\\extension",
   "extensionUrl": "chrome-extension://cpmhjliddapgdeodmklfbibnchacikpl",
@@ -64,12 +66,12 @@ The data.json file needs to be properly configured with the account that will be
 {
   "account": {
     "id": 12345,
-    "email": "email@email.com",
-    "password": "12345",
+    "email": "test@gmail.com",
+    "password": "test123",
     "country": {
       "code": "bo",
       "cityId": 1,
-      "tz": "América/La_Paz"
+      "tz": "America/La_Paz"
     },
     "useProxy": false,
     "proxies": ["host:port"],

@@ -7,6 +7,11 @@ import { LoopService } from "./services/loop.service";
 import { ProxyService } from "./services/proxy.service";
 import { HTTPRequest } from "puppeteer-core";
 import { sleep } from "./services/utils.service";
+import { Config } from "./interfaces/interfaces";
+import {
+  ConsoleTransportInstance,
+  FileTransportInstance,
+} from "winston/lib/winston/transports";
 
 const URL = "https://bo.usehurrier.com/app/rooster/web/shifts";
 
@@ -27,7 +32,7 @@ class App {
     this.logger = this.createLogger();
     this.dataService = new DataService();
     this.browserService = new BrowserService(
-      this.configService.loadConfig(),
+      this.configService.config,
       this.logger
     );
   }
@@ -37,15 +42,17 @@ class App {
    * and handling the main execution loop for interacting with web shifts.
    */
   async start(): Promise<void> {
-    const config = this.configService.loadConfig();
-
     const account = this.dataService.loadData();
 
     const browser = await this.browserService.launchBrowser();
 
     const [page] = await browser.pages();
 
-    const authService = new AuthService(page, config, this.logger);
+    const authService = new AuthService(
+      page,
+      this.configService.config,
+      this.logger
+    );
 
     if (account.useProxy && account.proxies.length <= 0) {
       this.logger.error("There is not proxies, you need to add proxies");
@@ -56,13 +63,20 @@ class App {
     const proxyService = new ProxyService(
       [...account.proxies],
       browser,
-      config,
+      this.configService.config,
       this.logger
     );
 
-    const loopService = new LoopService(page, account, config, this.logger);
+    const loopService = new LoopService(
+      page,
+      account,
+      this.configService.config,
+      this.logger
+    );
 
-    loopService.iterationLimit = Math.floor(7200000 / config.requestDelay)
+    loopService.iterationLimit = Math.floor(
+      7200000 / this.configService.config.requestDelay
+    );
 
     let logged = false;
 
@@ -137,17 +151,23 @@ class App {
    * @returns {Logger} - The configured logger instance.
    */
   private createLogger(): Logger {
-    let loggerTransports = [
-      new winston.transports.Console({
-        format: winston.format.combine(
-          winston.format.colorize({ all: true }),
-          winston.format.timestamp(),
-          winston.format.printf(
-            (info) => `${info.timestamp} - ${info.level}: ${info.message}`
-          )
-        ),
-      }),
-      new winston.transports.File({
+    const consoleTransport = new winston.transports.Console({
+      format: winston.format.combine(
+        winston.format.colorize({ all: true }),
+        winston.format.timestamp(),
+        winston.format.printf(
+          (info) => `${info.timestamp} - ${info.level}: ${info.message}`
+        )
+      ),
+    });
+
+    const loggerTransports: (
+      | ConsoleTransportInstance
+      | FileTransportInstance
+    )[] = [consoleTransport];
+
+    if (this.configService.config.debugFile) {
+      const fileTransport = new winston.transports.File({
         filename: "./utils/app.log",
         format: winston.format.combine(
           winston.format.timestamp(),
@@ -155,8 +175,9 @@ class App {
             (info) => `${info.timestamp} - ${info.level}: ${info.message}`
           )
         ),
-      }),
-    ];
+      });
+      loggerTransports.push(fileTransport);
+    }
 
     const logger = winston.createLogger({
       level: "debug",

@@ -1,8 +1,9 @@
 {
+  "debugFile": false,
   "requestDelay": 3000,
-  "extensionPath": "",
-  "extensionUrl": "",
-  "browserPath": "",
+  "extensionPath": "modify_this_part\\utils\\extension",
+  "extensionUrl": "chrome-extension://cpmhjliddapgdeodmklfbibnchacikpl",
+  "browserPath": "modify_this_part\\Application\\chrome.exe",
   "timeOutElements": 20000,
   "timeOutResponse": 20000,
   "selectors": {
