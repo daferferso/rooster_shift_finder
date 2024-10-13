@@ -132,14 +132,15 @@ class App {
             break;
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
-            // await this.browserService.clearDataBrowser(page);
             await authService.handleLogin(account);
             logged = true;
             loopService.iterationCount = 0;
             break;
           default:
             this.logger.error(`Other type of error: ${error}`);
-            await page.goto(URL);
+            await authService.handleLogin(account);
+            logged = true;
+            loopService.iterationCount = 0;
             break;
         }
       }
