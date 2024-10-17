@@ -90,23 +90,25 @@ export class LoopService {
   async getShifts(
     request: any
   ): Promise<{ status: number; swap: boolean; data: Shift[] }> {
-    const result: { value: string; status: number } = await this.page.evaluate(
-      async (request) => {
-        const response = await fetch(request.url, {
-          headers: request.headers,
-        });
-        const value = await response.text();
-        return { value: value, status: response.status };
-      },
-      request
-    );
+    try {
+      const result: { value: string; status: number } =
+        await this.page.evaluate(async (request) => {
+          const response = await fetch(request.url, {
+            headers: request.headers,
+          });
+          const value = await response.text();
+          return { value: value, status: response.status };
+        }, request);
 
-    if (result.status == 200) {
-      const data: any = JSON.parse(result.value);
-      return { status: result.status, swap: false, data: data.content };
+      if (result.status == 200) {
+        const data: any = JSON.parse(result.value);
+        return { status: result.status, swap: false, data: data.content };
+      }
+      return { status: result.status, swap: false, data: [] };
+    } catch (error) {
+      this.logger.error(`Error in getShifts ${error}`);
+      return { status: 500, swap: false, data: [] };
     }
-
-    return { status: result.status, swap: false, data: [] };
   }
 
   /**
@@ -118,26 +120,29 @@ export class LoopService {
   async getSwaps(
     request: any
   ): Promise<{ status: number; swap: boolean; data: Shift[] }> {
-    const result: { value: string; status: number } = await this.page.evaluate(
-      async (request) => {
-        const response = await fetch(request.url, {
-          headers: request.headers,
-        });
-        const value = await response.text();
-        return { value: value, status: response.status };
-      },
-      request
-    );
+    try {
+      const result: { value: string; status: number } =
+        await this.page.evaluate(async (request) => {
+          const response = await fetch(request.url, {
+            headers: request.headers,
+          });
+          const value = await response.text();
+          return { value: value, status: response.status };
+        }, request);
 
-    if (result.status == 200) {
-      const data: any = JSON.parse(result.value);
-      return { status: result.status, swap: true, data: data };
+      if (result.status == 200) {
+        const data: any = JSON.parse(result.value);
+        return { status: result.status, swap: true, data: data };
+      }
+
+      if (result.status == 429) throw new ProxyBannedError();
+      if (result.status == 401) throw new AccountNotLoggedError();
+
+      return { status: result.status, swap: true, data: [] };
+    } catch (error) {
+      this.logger.error(`Error in getShifts ${error}`);
+      return { status: 500, swap: false, data: [] };
     }
-
-    if (result.status == 429) throw new ProxyBannedError();
-    if (result.status == 401) throw new AccountNotLoggedError();
-
-    return { status: result.status, swap: true, data: [] };
   }
 
   /**
@@ -166,7 +171,7 @@ export class LoopService {
           this.iterationCount++;
 
           if (this.iterationCount >= this.iterationLimit) {
-            this.logger.info('Forcing login due to reaching 2 hours.')
+            this.logger.info("Forcing login due to reaching 2 hours.");
             await this.authService.deleteLocalStorageToLogout();
           }
 
