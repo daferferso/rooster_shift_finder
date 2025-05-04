@@ -7,9 +7,9 @@
   "timeOutElements": 20000,
   "timeOutResponse": 20000,
   "selectors": {
-    "emailInput": "",
-    "passwordInput": "",
-    "loginButton": "",
-    "pageTitle": ""
+    "emailInput": "#root > form > div.UYB26ZLIoSbGIGUW1hvr.R3Goxx0LcfBfN_H8yNHt > div.rSk7xM4cCbpAgI4L2Wcx.UqmftlusekB53wArie1z > input[type=email]",
+    "passwordInput": "#root > form > div.UYB26ZLIoSbGIGUW1hvr.R8puBFqSQ9heQ00zPFaQ > div.rSk7xM4cCbpAgI4L2Wcx.UqmftlusekB53wArie1z > input[type=password]",
+    "loginButton": "#root > form > button",
+    "pageTitle": "#app > div.Y_H7dxviaGWF8ClZOdze > div > header > div > div.No9IbYC1L1JdgIlAPE0R"
   }
 }

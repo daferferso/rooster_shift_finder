@@ -13,7 +13,8 @@ import {
   FileTransportInstance,
 } from "winston/lib/winston/transports";
 
-const URL = "https://bo.usehurrier.com/app/rooster/web/shifts";
+const LOGIN_URL = "https://bo.usehurrier.com/app/compliance/web/login";
+const APP_URL = "https://bo.usehurrier.com/app/rooster/web/login?redirect=%2Fshifts";
 
 /**
  * Main application class that initializes services and handles the main execution loop.
@@ -82,7 +83,7 @@ class App {
 
     while (true) {
       try {
-        await page.goto(URL);
+        await page.goto(LOGIN_URL);
         if (!logged) {
           if (account.useProxy) await proxyService.handleProxyConnection();
           await authService.handleLogin(account);
@@ -128,7 +129,7 @@ class App {
           case "TimeoutError":
             this.logger.error("Proxy or protocol error");
             if (account.useProxy) await proxyService.handleProxyConnection();
-            await page.goto(URL);
+            await page.goto(APP_URL);
             break;
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
