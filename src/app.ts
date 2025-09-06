@@ -7,7 +7,6 @@ import { LoopService } from "./services/loop.service";
 import { ProxyService } from "./services/proxy.service";
 import { HTTPRequest } from "puppeteer-core";
 import { sleep } from "./services/utils.service";
-import { Config } from "./interfaces/interfaces";
 import {
   ConsoleTransportInstance,
   FileTransportInstance,
@@ -87,6 +86,7 @@ class App {
         if (!logged) {
           if (account.useProxy) await proxyService.handleProxyConnection();
           await authService.handleLogin(account);
+          await page.goto(APP_URL);
           logged = true;
         }
 

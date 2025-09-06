@@ -23,7 +23,6 @@ export default class LoginScript {
    * @returns Promise<void> - Resolves once the login process is complete.
    */
   async login(account: Account): Promise<void> {
-    await this.page.goto("https://bo.usehurrier.com/app/rooster/web/login");
     await this.page.waitForSelector(this.config.selectors.emailInput);
     await this.page.type(this.config.selectors.emailInput, account.email);
     await this.page.type(this.config.selectors.passwordInput, account.password);
