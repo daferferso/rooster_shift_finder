@@ -1,470 +1,1252 @@
 {
-    "manifest_appName":{
-        "message":"Proxy SwitchySharp"
-    },
-    "manifest_appDescription":{
-        "message":"Manage and switch between multiple proxies quickly & easily. Based on \"Proxy Switchy!\" & \"SwitchyPlus\""
-    },
-    "manifest_iconTitle":{
-        "message":"[Loading...]"
-    },
-    "global_direction":{
-        "message":"ltr"
-    },
-    "global_float":{
-        "message":"right"
-    },
-    "global_fontFamily":{
-        "message":"auto"
-    },
-    "global_textAlign":{
-        "message":"left"
-    },
-    "message_saveOptions":{
-        "message":"Do you want to save your options?"
-    },
-    "message_errorDownloadingRuleList":{
-        "message":"Error downloading rule list file!"
-    },
-    "message_ruleListUpdated":{
-        "message":"Rule list updated successfully."
-    },
-    "message_SwitchRulesDisabled":{
-        "message":"You must enable switch rules and online rule list first!"
-    },
-    "message_cannotReadOptionsBackup":{
-        "message":"Oops! Can't read the backup file!"
-    },
-    "message_cannotRestoreOptionsBackup":{
-        "message":"Oops! Can't restore from this backup file!\n\nThe backup file is corrupted or invalid."
-    },
-    "message_cannotSaveFile":{
-        "message":"Oops! Can't save generated file!"
-    },
-    "message_deleteSelectedProfile":{
-        "message":"Are you sure you want to delete selected profile?\n\nSelected Profile: ($1)"
-    },
-    "message_deleteSelectedRule":{
-        "message":"Are you sure you want to delete selected rule?\n\nSelected Rule: ($1)"
-    },
-    "message_firstTimeWelcome":{
-        "message":"Welcome first time user!\u003Cbr\u003E\r\nTo start using SwitchySharp set up some proxy profiles below and then press 'Save'."
-    },
-    "message_optionsSaved":{
-        "message":"Options Saved.."
-    },
-    "message_profileDeleted":{
-        "message":"Profile Deleted.."
-    },
-    "message_restoreOptionsBackup":{
-        "message":"Are you sure you want to restore SwitchySharp options from this backup?\n\nCurrent SwitchySharp options will be overwritten."
-    },
-    "message_ruleDeleted":{
-        "message":"Rule Deleted.."
-    },
-    "message_rulesFirstTimeWelcome":{
-        "message":"This is the first time you use Auto Switch Mode. Here is how to start:\u003Cbr\u003E\r\n\u003Col\u003E\r\n\t\u003Cli\u003ESet up the 'Default Rule' below, this rule will be applied if no other rule is matched.\u003C/li\u003E\r\n\t\u003Cli\u003EAdd some rules (press 'New Rule' button), for each rule you should \r\n\t    specify a URL Pattern and a Proxy Profile.\u003C/li\u003E\r\n\t\u003Cli\u003EPress 'Save' and 'Close' to close this tab.\u003C/li\u003E\r\n\u003C/ol\u003E"
-    },
-    "message_saveChangedValues":{
-        "message":"Save changed values?"
-    },
-    "message_selectBackupFile":{
-        "message":"You should set the backup file path first.."
-    },
-    "message_successRestoreOptionsBackup":{
-        "message":"SwitchySharp options restored successfully."
-    },
-    "message_apply2All":{
-        "message":"Do you want to apply this profile to all rules? \n\n Selected profile: ($1)"
-    },
-    "options_12Hours":{
-        "message":"12 Hours"
-    },
-    "options_15Minutes":{
-        "message":"15 Minutes"
-    },
-    "options_1Hour":{
-        "message":"1 Hour"
-    },
-    "options_30Minutes":{
-        "message":"30 Minutes"
-    },
-    "options_3Hours":{
-        "message":"3 Hours"
-    },
-    "options_45Minutes":{
-        "message":"45 Minutes"
-    },
-    "options_6Hours":{
-        "message":"6 Hours"
-    },
-    "options_lastSuccessfulUpdate":{
-        "message":"Last successful update: "
-    },
-    "options_updateListNow":{
-        "message":"Update List Now"
-    },
-    "options_autoConfig":{
-        "message":"Automatic Configuration"
-    },
-    "options_autoConfigUrl":{
-        "message":"Auto Config URL"
-    },
-    "options_importPAC":{
-        "message":"Import PAC File"
-    },
-    "options_autoProxyCompatible":{
-        "message":"AutoProxy Compatible List"
-    },
-    "options_autoProxyCompatible_help":{
-        "message":"Check this option if the url points to an AutoProxy rule list (like 'gfwlist')."
-    },
-    "options_clickToEdit":{
-        "message":"Click to edit"
-    },
-    "options_close":{
-        "message":"Close"
-    },
-    "options_confirmDeletion":{
-        "message":"Confirm profile/rule deletion."
-    },
-    "options_confirmDeletion_help":{
-        "message":"Show a confirmation dialog for deletion of proxy profiles or switch rules."
-    },
-    "options_refreshTab":{
-        "message":"Refresh current tab on profile change"
-    },
-    "options_refreshTab_help":{
-        "message":"Refresh the current tab when changing profile via popup menu or quick switch."
-    },
-    "options_defaultRule":{
-        "message":"Default Rule"
-    },
-    "options_defaultRuleUrlPattern":{
-        "message":"All URLs that doesn't match any other pattern"
-    },
-    "options_defaultRule_help":{
-        "message":"\u003Cp\u003EThis rule will be applied if no other rule is matched.\u003C/p\u003E\r\n\u003Cp\u003E\u003Cb\u003ENote:\u003C/b\u003E This rule can't be deleted.\u003C/p\u003E"
-    },
-    "options_deleteProfile":{
-        "message":"Delete Profile"
-    },
-    "options_deleteRule":{
-        "message":"Delete Rule"
-    },
-    "options_resetOptions":{
-        "message":"Reset Options"
-    },
-    "options_everyday":{
-        "message":"Everyday"
-    },
-    "options_exportPacFile":{
-        "message":"Export PAC File"
-    },
-    "options_exportPacFile_help":{
-        "message":" Export Switch Rules as a PAC file, so you can use it in other browsers. "
-    },
-    "options_exportRuleList":{
-        "message":"Export Rule List"
-    },
-    "options_exportRuleList_help":{
-        "message":" Export Switch Rules as a SwitchySharp Rule List file, so you can share it with friends. "
-    },
-    "options_ftpProxy":{
-        "message":"FTP Proxy"
-    },
-    "options_headerTitle":{
-        "message":"SwitchySharp Options"
-    },
-    "options_httpProxy":{
-        "message":"HTTP Proxy"
-    },
-    "options_httpsProxy":{
-        "message":"HTTPS Proxy"
-    },
-    "options_makeBackup":{
-        "message":"Make Backup"
-    },
-    "options_makeBackup_help":{
-        "message":" Make a full backup of your SwitchySharp options (including proxies, rules and all other options). "
-    },
-    "options_manualConfig":{
-        "message":"Manual Configuration"
-    },
-    "options_miscOptions":{
-        "message":"Misc Options"
-    },
-    "options_monitorProxyChanges":{
-        "message":"Monitor Proxy Changes"
-    },
-    "options_monitorProxyChanges_help":{
-        "message":"When proxy settings changes, SwitchySharp will update its icon to reflect those changes."
-    },
-    "options_moreInfo":{
-        "message":"More Info"
-    },
-    "options_newProfile":{
-        "message":"New Profile"
-    },
-    "options_newRule":{
-        "message":"New Rule"
-    },
-    "options_noProxyFor":{
-        "message":"No Proxy for"
-    },
-    "options_noProxyFor_help":{
-        "message":"Use semicolons ( ; ) to seperate entries."
-    },
-    "options_patternType":{
-        "message":"Pattern Type"
-    },
-    "options_patternTypeRegExp":{
-        "message":"RegExp"
-    },
-    "options_patternTypeWildcard":{
-        "message":"Wildcard"
-    },
-    "options_patternType_help":{
-        "message":"\u003Cp\u003EThe type of URL Pattern.\u003C/p\u003E\u003Chr /\u003E\r\n\u003Ctable\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003EWildcard\u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003Efor Wildcard matching.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003ERegExp\u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003Efor Regular Expression matching.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\u003C/table\u003E"
-    },
-    "options_profileColor":{
-        "message":"Profile Color"
-    },
-    "options_profileDetails":{
-        "message":"Profile Details"
-    },
-    "options_profileName":{
-        "message":"Profile Name"
-    },
-    "options_proxyPort":{
-        "message":"Port"
-    },
-    "options_proxyProfile":{
-        "message":"Proxy Profile"
-    },
-    "options_proxyProfile_help":{
-        "message":"The proxy profile to be applied when this rule is matched."
-    },
-    "options_proxyProfiles":{
-        "message":"Proxy Profiles"
-    },
-    "options_quickSwitch":{
-        "message":"Quick Switch"
-    },
-    "options_quickSwitch_help":{
-        "message":"<p>Allows you to switch among proxy profiles in one click \n(by clicking on SwitchySharp icon).</p><hr />\n<p><strong>Note:</strong> After enabling this feature you won't be able to see SwitchySharp\nmain menu when clicking on SwitchySharp icon. To open Option page again,\nright-click on the icon and then click \"Options\".</p>"
-    },
-    "options_quickSwitch_cycle_help":{
-        "message":"When you click on the icon, SwitchySharp will apply the following profiles in their order."
-    },
-    "options_cycledProfiles":{
-        "message":"Cycled Profiles (drag to sort):"
-    },
-    "options_notCycledProfiles":{
-        "message":"Not cycled Profiles (drag to the above box to enable):"
-    },
-    "options_startupProfile":{
-        "message":"Startup Profile:"
-    },
-    "options_startupProfile_help":{
-        "message":"The profile to be applied on extension startup."
-    },
-    "options_lastSelectedProfile":{
-        "message":"(Last selected profile)"
-    },
-    "options_reapplyLastProfile_help":{
-        "message":"If this option is checked SwitchySharp will apply last user-selected proxy profile on Chrome startup."
-    },
-    "options_reloadEvery":{
-        "message":"Reload Every"
-    },
-    "options_reloadEvery_help":{
-        "message":"Auto reload the Rule List every..."
-    },
-    "options_restoreBackup":{
-        "message":"Restore from Online"
-    },
-    "options_restoreBackup_help":{
-        "message":"Options file URL (e.g. 'http://example.com/switchy.bak')"
-    },
-    "options_restoreLocal":{
-        "message":"Restore from File"
-    },
-    "options_restoreLocal_help":{
-        "message":"Restore your SwitchySharp options from a local file."
-    },
-    "options_revertProxyChanges":{
-        "message":"Revert proxy changes done by other apps."
-    },
-    "options_revertProxyChanges_help":{
-        "message":"Revert any change in proxy settings done by other applications."
-    },
-    "options_ruleList":{
-        "message":"Online Rule List"
-    },
-    "options_ruleListProxyProfile_help":{
-        "message":"The proxy profile to be applied when any rule of this list is matched."
-    },
-    "options_ruleListUrl":{
-        "message":"Rule List URL"
-    },
-    "options_ruleListUrl_help":{
-        "message":"The location of Rule List (you can't use local files)."
-    },
-    "options_ruleList_help":{
-        "message":"Import predefined Switch Rules from online repository."
-    },
-    "options_ruleName":{
-        "message":"Rule Name"
-    },
-    "options_save":{
-        "message":"Save"
-    },
-    "options_socks4":{
-        "message":"SOCKS v4"
-    },
-    "options_socks5":{
-        "message":"SOCKS v5"
-    },
-    "options_socksHost":{
-        "message":"SOCKS Host"
-    },
-    "options_switchRules":{
-        "message":"Switch Rules"
-    },
-    "options_switchRulesEnable":{
-        "message":"Enable Switch Rules"
-    },
-    "options_switchRulesEnable_help":{
-        "message":"\u003Cp\u003ESwitch Rules specify which proxy should be used for each URL.\u003C/p\u003E\u003Chr /\u003E\r\n\u003Cp\u003EWhen this option is enabled you'll see two more items in main menu:\u003C/p\u003E\r\n\u003Ctable\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003EAuto Switch Mode\u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003Eclicking this item will activate Switch Rules.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003ENew Rule\u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003Equickly add a new Switch Rule for the current website.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\u003C/table\u003E"
-    },
-    "options_tabGeneral":{
-        "message":"General"
-    },
-    "options_tabImportExport":{
-        "message":"Import/Export"
-    },
-    "options_tabNetwork":{
-        "message":"Network"
-    },
-    "options_tabProxyProfiles":{
-        "message":"Proxy Profiles"
-    },
-    "options_tabSwitchRules":{
-        "message":"Switch Rules"
-    },
-    "options_untitledProfile":{
-        "message":"[Untitled Profile]"
-    },
-    "options_urlPattern":{
-        "message":"URL Pattern"
-    },
-    "options_urlPattern_help":{
-        "message":"\u003Cp\u003EPattern of the page url.\u003C/p\u003E\u003Chr /\u003E\r\n\u003Ctable\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd colspan='2'\u003E\u003Cb\u003EWildcard Reference\u003C/b\u003E\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003EThe asterisk (*) \u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003Ematches zero or more characters.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003EThe question mark (?) \u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003Ematches exactly one character.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd colspan='2'\u003E\u003Cbr /\u003E\u003Cb\u003EExamples\u003C/b\u003E\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003E*://www.google.com/* \u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003EMatches any URL that is on 'www.google.com' host and \r\n\t\tuses any scheme (http, https ...).\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003Ehttps://*.google.com/foo*bar \u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003EMatches any URL that is on a 'google.com' host and\r\n\t\tuses the https scheme (such as 'www.google.com', \r\n\t\t'docs.google.com', or 'google.com'), as long as the path \r\n\t\tstarts with '/foo' and ends with 'bar'.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\t\u003Ctr\u003E\r\n\t\t\u003Ctd\u003E\u003Ci\u003Ehttp://example.org/foo/bar.html \u003C/i\u003E\u003C/td\u003E\r\n\t\t\u003Ctd\u003EMatches exactly the specified URL.\u003C/td\u003E\r\n\t\u003C/tr\u003E\r\n\u003C/table\u003E"
-    },
-    "options_useSameProxy":{
-        "message":"Use the same proxy server for all protocols"
-    },
-    "options_vpnDialupProxy":{
-        "message":"Proxy for VPN/Dial-up"
-    },
-    "options_upgradeTitle":{
-        "message": "Meet SwitchyOmega, the next generation of SwitchySharp."
-    },
-    "options_upgradeContent":{
-        "message":"<p>I know that you love SwitchySharp, so I work hard to make it better. 18 months ago, I started working on the 2.x version with the project name, SwitchyOmega.</p><p>I spent countless hours designing, coding and testing. I redesigned the whole project architecture, and painted a new look for both the options page and the popup. The switching logic is made more flexible, and blazing fast. Many features we have dreamt about, now comes true.  <a href='https://github.com/FelisCatus/SwitchyOmega/wiki/What%27s-new-in-SwitchyOmega'>See what's new.</a></p><p>We have waited so long for an upgrade. Now it is the time.</p><p>P.S. Don't worry. Existing options will be upgraded, and you can enjoy the new features without having to redo your configuration. </p>"
-    },
-    "options_upgradeLink":{
-        "message":"https://chrome.google.com/webstore/detail/proxy-switchyomega/padekgcemlokbadohgkifijomclgjgif"
-    },
-    "options_upgrade":{
-        "message": "Upgrade"
-    },
-    "popup_aboutSwitchy":{
-        "message":"About SwitchySharp"
-    },
-    "popup_add":{
-        "message":"Add"
-    },
-    "popup_autoSwitchMode":{
-        "message":"Auto Switch Mode"
-    },
-    "popup_newTempRule_help":{
-        "message":"Add a temporary rule for the current domain."
-    },
-    "popup_newTempRule2_help":{
-        "message":"The profile to be applied temporarily for the current domain."
-    },
-    "popup_autoSwitchMode_help":{
-        "message":"Automatically choose the proper proxy profile \nfor each URL, based on Switch Rules."
-    },
-    "popup_cancel":{
-        "message":"Cancel"
-    },
-    "popup_copyright":{
-        "message":"Copyright &copy; 2011 @Shyc2001.<br />Some rights reserved."
-    },
-    "popup_developedBy":{
-        "message":"Developed by"
-    },
-    "popup_basedOn":{
-        "message":"Based on the work of"
-    },
-    "popup_duplicateRules":{
-        "message":"* There is already a rule for this URL Pattern."
-    },
-    "popup_newRule":{
-        "message":"New Rule"
-    },
-    "popup_newRule_help":{
-        "message":"Quickly add a new Switch Rule \nfor the current website."
-    },
-    "popup_options":{
-        "message":"Options"
-    },
-    "popup_or":{
-        "message":"or"
-    },
-    "popup_supportAndBugReports":{
-        "message":"Support &amp; Bug reports"
-    },
-    "popup_switchyWebPage":{
-        "message":"Switchy! web page"
-    },
-    "popup_switchyPlusWebPage":{
-        "message":"SwitchyPlus web page"
-    },
-    "popup_version":{
-        "message":"version"
-    },
-    "disabled_title":{
-        "message":"Migrate to SwitchyOmega"
-    },
-    "disabled_newOptions":{
-        "message":"SwitchyOmega Options"
-    },
-    "disabled_content":{
-        "message":"Proxy settings are now controlled by SwitchyOmega. Please disable this extension and use SwitchyOmega options instead."
-    },
-    "disabled_manage":{
-        "message":"Manage"
-    },
-    "proxy_systemProxy":{
-        "message":"System Proxy"
-    },
-    "proxy_autoSwitch":{
-        "message":"Auto Switch"
-    },
-    "proxy_systemProxy_help":{
-        "message":"Use System Proxy (need restart)"
-    },
-    "proxy_directConnection":{
-        "message":"Direct Connection"
-    },
-    "proxy_directConnection_help":{
-        "message":"Disable Proxy"
-    },
-    "proxy_autoSwitchIconTitle":{
-        "message":"Auto Switch Mode\nActive Page Proxy: $1"
-    }
+   "about_app_description": {
+      "message": "A proxy configuration tool"
+   },
+   "about_copyright": {
+      "message": "Copyright 2012-2017 \u003Ca href='https://github.com/mrfanii/SwitchyOmega-V3/blob/master/AUTHORS'>The SwitchyOmega Authors\u003C/a>. All rights reserved."
+   },
+   "about_credits": {
+      "message": "SwitchyOmega is made possible by the \u003Ca href='https://github.com/mrfanii/SwitchyOmega-V3'>SwitchyOmega\u003C/a> open source project and other \u003Ca href='https://github.com/mrfanii/SwitchyOmega-V3/blob/master/AUTHORS'>open source software\u003C/a>."
+   },
+   "about_disclaimer_networkService": {
+      "message": "SwitchyOmega does not provide proxies, VPNs, or other network services."
+   },
+   "about_disclaimer_privacy": {
+      "message": "SwitchyOmega does not track you or insert ads into webpages. Please see our \u003Ca href='https://github.com/mrfanii/SwitchyOmega-V3/wiki/Privacy#english'>privacy policy\u003C/a>."
+   },
+   "about_experimental_warning_moz": {
+      "message": "Mozilla Firefox support is highly experimental! If you encounter issues, please report using the buttons below."
+   },
+   "about_help": {
+      "message": "Other questions? Need help with using SwitchyOmega? Please see our \u003Ca href='https://github.com/mrfanii/SwitchyOmega-V3/wiki/FAQ'>FAQ\u003C/a>."
+   },
+   "about_license": {
+      "message": "SwitchyOmega is \u003Ca href='https://www.gnu.org/philosophy/free-sw.en.html'>free software\u003C/a> licensed under \u003Ca href='https://www.gnu.org/licenses/gpl.html'>GNU General Public License\u003C/a> Version 3 or later."
+   },
+   "about_title": {
+      "message": "About"
+   },
+   "about_version": {
+      "message": "Version $VERSION$",
+      "placeholders": {
+         "VERSION": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "appNameShort": {
+      "message": "SwitchyOmega"
+   },
+   "browserAction_attachedPrefix": {
+      "message": "(RL) "
+   },
+   "browserAction_defaultRuleDetails": {
+      "message": "(default)"
+   },
+   "browserAction_directResult": {
+      "message": "DIRECT"
+   },
+   "browserAction_profileDetails_DirectProfile": {
+      "message": "(not using any proxy)"
+   },
+   "browserAction_profileDetails_PacProfile": {
+      "message": "(PAC script)"
+   },
+   "browserAction_profileDetails_RuleListProfile": {
+      "message": "(switching based on rule list)"
+   },
+   "browserAction_profileDetails_SwitchProfile": {
+      "message": "(switching based on conditions)"
+   },
+   "browserAction_profileDetails_SystemProfile": {
+      "message": "(controlled by other extensions or environment)"
+   },
+   "browserAction_tempRulePrefix": {
+      "message": "(TEMP) "
+   },
+   "browserAction_titleDownloadFail": {
+      "message": "Warning: Failed to download PAC scripts and/or rule lists."
+   },
+   "browserAction_titleExternalProxy": {
+      "message": "Note: The proxy settings are currently controlled by other app(s)."
+   },
+   "browserAction_titleInspect": {
+      "message": "[Inspect] $URL$",
+      "placeholders": {
+         "URL": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "browserAction_titleNewerOptions": {
+      "message": "ERROR: A newer version of SwitchOmega is required to load the stored options."
+   },
+   "browserAction_titleNormal": {
+      "message": "SwitchyOmega:: $PROFILE$",
+      "placeholders": {
+         "PROFILE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "browserAction_titleOptionError": {
+      "message": "ERROR: The stored options are corrupted. Click here to RESET OPTIONS."
+   },
+   "browserAction_titleWithResult": {
+      "message": "SwitchyOmega:: $PROFILE$\n$DETAILS$",
+      "placeholders": {
+         "DETAILS": {
+            "content": "$3"
+         },
+         "PROFILE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         },
+         "_unused_2": {
+            "content": "$2"
+         }
+      }
+   },
+   "condition_FalseCondition": {
+      "message": "(Disabled)"
+   },
+   "condition_HostLevelsCondition": {
+      "message": "Host levels"
+   },
+   "condition_HostRegexCondition": {
+      "message": "Host regex"
+   },
+   "condition_HostWildcardCondition": {
+      "message": "Host wildcard"
+   },
+   "condition_IpCondition": {
+      "message": "IP Literals"
+   },
+   "condition_KeywordCondition": {
+      "message": "Keyword"
+   },
+   "condition_TimeCondition": {
+      "message": "Current Time"
+   },
+   "condition_UrlRegexCondition": {
+      "message": "URL regex"
+   },
+   "condition_UrlWildcardCondition": {
+      "message": "URL wildcard"
+   },
+   "condition_WeekdayCondition": {
+      "message": "Day of the Week"
+   },
+   "condition_alert_fullUrlLimitation": {
+      "message": "Full URL matching is no longer possible for \u003Ccode>https://\u003C/code> URLs as of Chrome 52. \u003Ca href='https://github.com/mrfanii/SwitchyOmega-V3/wiki/Chromium-Full-URL-Limitation'>Learn more...\u003C/a>"
+   },
+   "condition_alert_fullUrlLimitationLink": {
+      "message": "https://github.com/mrfanii/SwitchyOmega-V3/wiki/Chromium-Full-URL-Limitation"
+   },
+   "condition_details_FalseCondition": {
+      "message": "(Condition ignored when matching)"
+   },
+   "condition_group_default": {
+      "message": ""
+   },
+   "condition_group_host": {
+      "message": "Host"
+   },
+   "condition_group_special": {
+      "message": "Special"
+   },
+   "condition_group_url": {
+      "message": "Url"
+   },
+   "condition_help_FalseCondition": {
+      "message": "You can disable a condition by setting its type to \u003Ccode>(Disabled)\u003C/code>. A Disabled condition act as if it does not exist.\u003Cbr>This feature can be used to disable conditions temporarily.\u003Cbr>Disabled conditions still hold the previous information (like patterns) and can be re-enabled by setting the condition type back to the previous type."
+   },
+   "condition_help_HostLevelsCondition": {
+      "message": "Matches the request if and only if the host level in within the given range.\u003Cbr>Host level is defined as the \u003Cb>number of dot-separated segments\u003C/b> of the host (domain name).\u003Cbr>Example: \u003Ccode>www.example.com\u003C/code> is with a host level of 3, while \u003Ccode>internal\u003C/code> is of host level 1."
+   },
+   "condition_help_HostRegexCondition": {
+      "message": "Like Host wildcard condition, but matches hosts (domain names) by \u003Ca href='https://www.google.com/search?q=regular%20expression'>regular expression\u003C/a>.\u003Cbr>Regular expressions can be hard to construct (and read).\u003Cbr>It is recommended to use wildcards for most cases and only use regex for conditions that cannot be achieved by any other condition type."
+   },
+   "condition_help_HostWildcardCondition": {
+      "message": "Matches hosts (domain names) by wildcard.\u003Cbr>\u003Cb>The asterisk \u003Ccode>*\u003C/code>\u003C/b> matches zero or more characters.\u003Cbr>\u003Cb>The question mark \u003Ccode>?\u003C/code>\u003C/b> matches exactly one character.\u003Cbr>\u003Cbr>Note that rules beginning with \u003Ccode>*.\u003C/code> are specially treated only in Host wildcard conditions.\u003Cbr>Example: \u003Ccode>*.example.com\u003C/code> will match www.example.com \u003Cb>AND example.com as well.\u003C/b>\u003Cbr>To match subdomains \u003Cb>only\u003C/b>, use \u003Cb>two\u003C/b> asterisks like \u003Ccode>**.example.com\u003C/code>."
+   },
+   "condition_help_IpCondition": {
+      "message": "Matches the request if and only if the host is a \u003Cb>literal\u003C/b> IP address and in the subnet as specified by \u003Ca href='https://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing#CIDR_notation'>CIDR notation\u003C/a>.\u003Cbr>For example, given the rule \u003Ccode>127.0.0.1/16\u003C/code>, it matches all IP addresses like \u003Ccode>127.0.*.*\u003C/code>.\u003Cbr>So \u003Ccode>127.0.0.1\u003C/code> matches while \u003Ccode>127.1.0.0\u003C/code> does not. Host names like \u003Ccode>localhost\u003C/code> will never match because they are \u003Cb>not\u003C/b> IP literals."
+   },
+   "condition_help_KeywordCondition": {
+      "message": "A keyword condition matches if the URL protocol is HTTP, and the pattern is an exact sub-string of the URL.\u003Cbr>It behaves like the URL wildcard pattern \u003Ccode>http://*\u003Cb>pattern\u003C/b>*\u003C/code>, where \u003Cb>pattern\u003C/b> is the keyword pattern.\u003Cbr>Keyword conditions are useful if you want to bypass a firewall blocking some keywords in the URL, by requesting such URLs through a proxy."
+   },
+   "condition_help_TimeCondition": {
+      "message": "Matches if the current local time is in the range defined by \u003Cb>starting hour\u003C/b> and \u003Cb>ending hour\u003C/b>, both inclusive.\u003Cbr>Local time, starting hour and ending hour are all calculated in \u003Cb>24-hour\u003C/b> format (from \u003Cb>0 to 23\u003C/b>). \u003Cbr>The calculation happens roughly at the moment when the request is sent."
+   },
+   "condition_help_UrlRegexCondition": {
+      "message": "Matches URL by extremely powerful \u003Ca href='https://www.google.com/search?q=regular%20expression'>regular expression\u003C/a>.\u003Cbr>However, regular expressions can be hard to construct (and read).\u003Cbr>It is recommended to use wildcards for most cases and only use regex for conditions that cannot be achieved by any other condition type."
+   },
+   "condition_help_UrlWildcardCondition": {
+      "message": "Matches URLs of the request by wildcard.\u003Cbr>See the Host wildcard section above for a quick wildcard reference.\u003Cbr>Note that URL wildcards are not specially treated (no subdomain magic as in Host wildcard).\u003Cbr>So \u003Ccode>*://*.example.com/*\u003C/code> matches http://www.example.com/ but \u003Cb>does not\u003C/b> match http://example.com/."
+   },
+   "condition_help_WeekdayCondition": {
+      "message": "Matches if the \u003Cb>current day of week\u003C/b> is selected in condition details. Day is calculated according to local timezone.\u003Cbr>The request and its URL don't matter to this condition. The result is solely based on the day of the week when the request is sent."
+   },
+   "contextMenu_enableQuickSwitch": {
+      "message": "Enable Quick Switch"
+   },
+   "contextMenu_inspectElement": {
+      "message": "Inspect proxy used for this Element"
+   },
+   "contextMenu_inspectFrame": {
+      "message": "Inspect proxy used for this Frame"
+   },
+   "contextMenu_inspectLink": {
+      "message": "Inspect proxy to be used if this Link is opened"
+   },
+   "contextMenu_inspectPage": {
+      "message": "Inspect proxy used for this page"
+   },
+   "dialog_cancel": {
+      "message": "Cancel"
+   },
+   "dialog_close": {
+      "message": "Close"
+   },
+   "dialog_ok": {
+      "message": "OK"
+   },
+   "dialog_save": {
+      "message": "Save changes"
+   },
+   "inputClear_clear": {
+      "message": "Clear"
+   },
+   "inputClear_restore": {
+      "message": "Restore"
+   },
+   "manifest_app_description": {
+      "message": "Manage and switch between multiple proxies quickly & easily."
+   },
+   "manifest_app_name": {
+      "message": "Proxy SwitchyOmega"
+   },
+   "manifest_icon_default_title": {
+      "message": "Loading…"
+   },
+   "options_addCondition": {
+      "message": "Add condition"
+   },
+   "options_addConditionsToBottom": {
+      "message": "Put new conditions added using the popup to the bottom of the list."
+   },
+   "options_apply": {
+      "message": "Apply changes"
+   },
+   "options_applyOptionsConfirm": {
+      "message": "Do you want to save and apply the options?"
+   },
+   "options_applyOptionsRequired": {
+      "message": "Your changes to the options must be applied before you proceed."
+   },
+   "options_attachProfile": {
+      "message": "Add a rule list"
+   },
+   "options_attachProfileHelp": {
+      "message": "You can reuse an online collection of conditions published by others by adding a rule list."
+   },
+   "options_bypassListHelp": {
+      "message": "Servers for which you do not want to use any proxy: (One server on each line.)"
+   },
+   "options_bypassListHelpLinkText": {
+      "message": "(Wildcards and more available…)"
+   },
+   "options_cloneRule": {
+      "message": "Clone"
+   },
+   "options_conditionActions": {
+      "message": "Actions"
+   },
+   "options_conditionDetails": {
+      "message": "Condition Details"
+   },
+   "options_conditionType": {
+      "message": "Condition Type"
+   },
+   "options_confirmDeletion": {
+      "message": "Confirm on condition deletion."
+   },
+   "options_conflicts_higherPriority": {
+      "message": "If SwitchyOmega has higher priority, you can give the control back to other apps or system settings by selecting $SYSTEMPROFILE$ in the popup menu.",
+      "placeholders": {
+         "SYSTEMPROFILE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_conflicts_introduction": {
+      "message": "Sometimes, other apps will also try to control the proxy settings, resulting in conflicts. Note that ad blockers and other extensions may also use proxy settings under the hood. Such conflicts cannot be avoided due to how the browser works."
+   },
+   "options_conflicts_lowerPriority": {
+      "message": "A red badge like this on the SwitchyOmega icon indicates that another app has higher priority so SwitchyOmega cannot control the settings. Please try to uninstall SwitchyOmega and reinstall, which should raise SwitchyOmega's priority. If you still see conflicts after reinstallation, please consider removing the other app causing the conflict."
+   },
+   "options_createProfile": {
+      "message": "Create"
+   },
+   "options_cycledProfiles": {
+      "message": "Cycled Profiles"
+   },
+   "options_cycledProfilesHelp": {
+      "message": "When you click on the icon (or use the shortcut above), the following profiles will be applied in their order."
+   },
+   "options_cycledProfilesTooFew": {
+      "message": "You need to select at least 2 profiles to enable this function! You can drag them from the box below."
+   },
+   "options_deleteAttached": {
+      "message": "Remove rule list"
+   },
+   "options_deleteAttachedConfirm": {
+      "message": "Do you really want to remove the rule list from the current profile?"
+   },
+   "options_deleteProfile": {
+      "message": "Delete"
+   },
+   "options_deleteProfileConfirm": {
+      "message": "Do you really want to delete the following profile?"
+   },
+   "options_deleteRule": {
+      "message": "Delete"
+   },
+   "options_deleteRuleConfirm": {
+      "message": "Do you really want to delete the following rule?"
+   },
+   "options_discard": {
+      "message": "Discard changes"
+   },
+   "options_downloadInterval": {
+      "message": "Download Interval"
+   },
+   "options_downloadInterval_1440": {
+      "message": "Every day"
+   },
+   "options_downloadInterval_15": {
+      "message": "15 Minutes"
+   },
+   "options_downloadInterval_180": {
+      "message": "3 Hours"
+   },
+   "options_downloadInterval_360": {
+      "message": "6 Hours"
+   },
+   "options_downloadInterval_60": {
+      "message": "1 Hour"
+   },
+   "options_downloadInterval_720": {
+      "message": "12 Hours"
+   },
+   "options_downloadInterval_never": {
+      "message": "Never"
+   },
+   "options_downloadOptions": {
+      "message": "Download Options"
+   },
+   "options_downloadOptionsHelp": {
+      "message": "Configure the update frequency of online rule lists and PAC scripts."
+   },
+   "options_downloadProfileNow": {
+      "message": "Download Profile Now"
+   },
+   "options_experimental_badge": {
+      "message": "α"
+   },
+   "options_exportLegacyRuleList": {
+      "message": "Export rule lists using Proxy Switchy!/SwitchyPlus/SwitchySharp compatible format when possible."
+   },
+   "options_exportLegacyRuleListHelp": {
+      "message": "Enable this option only if you publish rule lists for users of those projects.\u003Cbr>Please consider advising your audience to upgrade to SwitchyOmega for the improvements."
+   },
+   "options_exportPacFile": {
+      "message": "Export as PAC File"
+   },
+   "options_exportPacFileHelp": {
+      "message": "Export the current profile as a PAC file, so you can use it in other browsers."
+   },
+   "options_exportProfileHelp": {
+      "message": "To export a profile, use the top-right action bar on the profile page."
+   },
+   "options_formInvalid": {
+      "message": "Please correct the errors in this page."
+   },
+   "options_group_attachProfile": {
+      "message": "Import online rule lists"
+   },
+   "options_group_bypassList": {
+      "message": "Bypass List"
+   },
+   "options_group_conditionHelp": {
+      "message": "About Condition Types"
+   },
+   "options_group_conflicts": {
+      "message": "Conflicts"
+   },
+   "options_group_importExportProfile": {
+      "message": "Profile"
+   },
+   "options_group_importExportSettings": {
+      "message": "Settings"
+   },
+   "options_group_keyboardShortcut": {
+      "message": "Keyboard Shortcut"
+   },
+   "options_group_miscOptions": {
+      "message": "Misc Options"
+   },
+   "options_group_networkRequests": {
+      "message": "Network Requests"
+   },
+   "options_group_pacScript": {
+      "message": "PAC Script"
+   },
+   "options_group_pacUrl": {
+      "message": "PAC URL"
+   },
+   "options_group_proxyChanges": {
+      "message": "Proxy Changes"
+   },
+   "options_group_proxyServers": {
+      "message": "Proxy servers"
+   },
+   "options_group_ruleListConfig": {
+      "message": "Rule List Config"
+   },
+   "options_group_ruleListResult": {
+      "message": "Rule list result profiles"
+   },
+   "options_group_ruleListText": {
+      "message": "Rule List Text"
+   },
+   "options_group_ruleListUrl": {
+      "message": "Rule List URL"
+   },
+   "options_group_switchOptions": {
+      "message": "Switch Options"
+   },
+   "options_group_switchRules": {
+      "message": "Switch rules"
+   },
+   "options_group_syncing": {
+      "message": "Syncing (Experimental)"
+   },
+   "options_group_virtualProfile": {
+      "message": "Virtual Profile"
+   },
+   "options_group_virtualProfileReplace": {
+      "message": "Migrate to Virtual Profile"
+   },
+   "options_guideDone": {
+      "message": "Done"
+   },
+   "options_guideNext": {
+      "message": "Next"
+   },
+   "options_guideSkip": {
+      "message": "Skip guide"
+   },
+   "options_guide_addMoreProfilesStep": {
+      "message": "Need more profiles? You can always add more \u003Cb>Proxy, Switch and other profiles\u003C/b>\u003Cbr>for all your proxying needs.\u003Cbr>Enjoy proxying!"
+   },
+   "options_guide_applySwitchProfileStep": {
+      "message": "When you are done setting the switch profile, don't forget to \u003Cb>switch to it in the popup menu.\u003C/b>\u003Cbr/> The icon will show you the \u003Cb>final result\u003C/b> profile applied for the current tab. \u003Cbr/> \u003Cb>Hovering\u003C/b> on the icon will reveal a tooltip with details."
+   },
+   "options_guide_autoSwitchProfileStep": {
+      "message": "You can tell SwitchyOmega to switch between proxies automatically through the mighty \u003Cb>Switch Profile\u003C/b>.\u003Cbr>However, its features cannot be covered in this quick guide.\u003Cbr>You can open this profile to unlock its power some time later."
+   },
+   "options_guide_conditionProfileStep": {
+      "message": "SwitchyOmega applies the selected profile here to \u003Cb>any request matching the condition.\u003C/b> \u003Cbr> The special \u003Cb>\"[Direct]\" profile\u003C/b> will cause the request to be sent without any proxy."
+   },
+   "options_guide_conditionStep": {
+      "message": "SwitchyOmega can apply different profiles to requests based on \u003Cb>conditions\u003C/b>.\u003Cbr> For example, the \u003Cb>Host wildcard\u003C/b> condition allows you to set the profile for all URLs in a domain."
+   },
+   "options_guide_conditionTypeStep": {
+      "message": "You can use various condition types to match the host or full URL. \u003Cbr> Click on the question mark to open the type reference."
+   },
+   "options_guide_fixedProfileStep": {
+      "message": "A \u003Cb>Proxy Profile\u003C/b> contains settings like server ip &amp; port for proxy.\u003Cbr>Profiles are the the basic configuration units in SwitchyOmega.\u003Cbr>We have already created an example profile for you. Try opening it."
+   },
+   "options_guide_fixedServersStep": {
+      "message": "You can fill in your proxy server and port here as you like.\u003Cbr>SwitchyOmega \u003Cb>does not come with any proxy servers\u003C/b>.\u003Cbr>Please consult your network provider or proxy software manual if you don't know what should be filled in here."
+   },
+   "options_guide_switchDefaultStep": {
+      "message": "If no condition applies to some request, the \"Default\" profile will be used. \u003Cbr>Conditions are always considered \u003Cb>from top to bottom\u003C/b> in order.\u003Cbr>You can change their order by dragging the sort icon."
+   },
+   "options_hostLevelsBetween": {
+      "message": "≤ host levels ≤"
+   },
+   "options_hourBetween": {
+      "message": "≤ current hour ≤"
+   },
+   "options_importDownloadError": {
+      "message": "Error downloading backup file!"
+   },
+   "options_importFormatError": {
+      "message": "Invalid backup file!"
+   },
+   "options_importSuccess": {
+      "message": "Options imported."
+   },
+   "options_makeBackup": {
+      "message": "Make backup"
+   },
+   "options_makeBackupHelp": {
+      "message": "Make a full backup of your options (including profiles and all other options)."
+   },
+   "options_menuShortcutConfigure": {
+      "message": "Configure shortcut"
+   },
+   "options_menuShortcutHelp": {
+      "message": "Pressing the shortcut will open the switch popup menu. (Defaults to Alt+Shift+O)."
+   },
+   "options_menuShortcutMore": {
+      "message": "The items in the popup menu can also be accessed using the keyboard. Press ? (or /) in the menu to learn more."
+   },
+   "options_modalHeader_applyOptions": {
+      "message": "Apply Options"
+   },
+   "options_modalHeader_cannotDeleteProfile": {
+      "message": "Unable to Delete Profile"
+   },
+   "options_modalHeader_deleteAttached": {
+      "message": "Remove Rule List"
+   },
+   "options_modalHeader_deleteProfile": {
+      "message": "Delete Profile"
+   },
+   "options_modalHeader_deleteRule": {
+      "message": "Delete Rule"
+   },
+   "options_modalHeader_newProfile": {
+      "message": "New Profile"
+   },
+   "options_modalHeader_proxyAuth": {
+      "message": "Proxy Authentication"
+   },
+   "options_modalHeader_renameProfile": {
+      "message": "Rename Profile"
+   },
+   "options_modalHeader_replaceProfile": {
+      "message": "Replace Profile"
+   },
+   "options_modalHeader_resetOptions": {
+      "message": "Reset Options"
+   },
+   "options_modalHeader_resetRules": {
+      "message": "Reset rules"
+   },
+   "options_modalHeader_welcome": {
+      "message": "Welcome to SwitchyOmega"
+   },
+   "options_modifyReferringProfiles": {
+      "message": "You must modify these profiles and make them stop referring to this profile before you can delete it."
+   },
+   "options_monitorWebRequests": {
+      "message": "Show count of failed web requests for resources in the current tab."
+   },
+   "options_monitorWebRequestsHelp": {
+      "message": "A yellow badge will be displayed on the icon if some resources fail to load,\u003Cbr>and you can set the profile for such resources conveniently via the popup menu."
+   },
+   "options_navHeader_actions": {
+      "message": "Actions"
+   },
+   "options_navHeader_profiles": {
+      "message": "Profiles"
+   },
+   "options_navHeader_setting": {
+      "message": "Settings"
+   },
+   "options_newProfile": {
+      "message": "New profile…"
+   },
+   "options_newProfileName": {
+      "message": "Profile name"
+   },
+   "options_notCycledProfiles": {
+      "message": "Not Cycled Profiles"
+   },
+   "options_optionsNotSaved": {
+      "message": "Your modifications to the options have not been saved and will be lost if you proceed!"
+   },
+   "options_pacScriptLastUpdate": {
+      "message": "PAC script downloaded at $TIME$:",
+      "placeholders": {
+         "TIME": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_pacScriptObsolete": {
+      "message": "PAC script is obsolete due to URL change. Press the download button above to update."
+   },
+   "options_pacUrlFile": {
+      "message": "PAC profiles with file: URLs can only be applied directly. They cannot be used as result profiles because local files cannot be accessed due to browser limitation."
+   },
+   "options_pacUrlFileDisabled": {
+      "message": "Therefore, you cannot use local PAC file for this profile. You can create a new PAC profile for that if you really want that."
+   },
+   "options_pacUrlHelp": {
+      "message": "The PAC script will be updated from this URL. If it is left blank, the following script will be used directly instead."
+   },
+   "options_pac_profile_unsupported_moz": {
+      "message": "PAC Profiles WILL NOT work in Mozilla Firefox due to technical limitations!"
+   },
+   "options_profileDescFixedProfile": {
+      "message": "Tunneling traffic through proxy servers."
+   },
+   "options_profileDescMorePacProfile": {
+      "message": "You will only need this if you have a PAC script or a URL to it. Don't try to create one unless you have knowledge about PAC."
+   },
+   "options_profileDescPacProfile": {
+      "message": "Choosing proxies using an online/local PAC script."
+   },
+   "options_profileDescRuleListProfile": {
+      "message": "Reusing an online collection of conditions published by others."
+   },
+   "options_profileDescSwitchProfile": {
+      "message": "Applying different profiles automatically on various conditions such as domains or patterns.\n You can also import rules published online for easier switching. (Replaces AutoSwitch mode + Rule List.)"
+   },
+   "options_profileDescVirtualProfile": {
+      "message": "A virtual profile can act as any of the other profiles on demand. It works well with SwitchProfile, allowing you to change the result of multiple conditions by one click."
+   },
+   "options_profileDownloadError": {
+      "message": "Error downloading profile data!"
+   },
+   "options_profileDownloadError_ContentTypeRejectedError": {
+      "message": "The downloaded data is invalid! You may open the Profile URL in your browser to inspect it."
+   },
+   "options_profileDownloadError_HttpError": {
+      "message": "An HTTP error ($STATUS$) occurred when updating.",
+      "placeholders": {
+         "STATUS": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_profileDownloadError_HttpNotFoundError": {
+      "message": "The Profile URL was not found on the server. Please double-check."
+   },
+   "options_profileDownloadError_HttpServerError": {
+      "message": "The remote server responded with error ($STATUS$) when updating.",
+      "placeholders": {
+         "STATUS": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_profileDownloadError_NetworkError": {
+      "message": "A network error occurred when updating."
+   },
+   "options_profileDownloadSuccess": {
+      "message": "Successfully updated profile."
+   },
+   "options_profileEditSource": {
+      "message": "Edit source code"
+   },
+   "options_profileEditSourceHelp": {
+      "message": "Show help about the source code format"
+   },
+   "options_profileEditSourceHelpUrl": {
+      "message": "https://github.com/mrfanii/SwitchyOmega-V3/wiki/SwitchyOmega-conditions-format#result-profile"
+   },
+   "options_profileExportPac": {
+      "message": "Export PAC"
+   },
+   "options_profileExportRuleList": {
+      "message": "Publish rule list"
+   },
+   "options_profileExportRuleListHelp": {
+      "message": "Export Switch Rules as text format for publishing."
+   },
+   "options_profileNameConflict": {
+      "message": "A profile with this name already exists."
+   },
+   "options_profileNameEmpty": {
+      "message": "The name of the profile must not be empty."
+   },
+   "options_profileNameHidden": {
+      "message": "Profiles with names starting with underscore will be hidden on the popup menu. However, they can still be used in places like switch profile results."
+   },
+   "options_profileNameReserved": {
+      "message": "Profile names beginning with double-underscore are reserved."
+   },
+   "options_profileNotFound": {
+      "message": "Profile $PROFILE$ does not exist! The options may be corrupted.",
+      "placeholders": {
+         "PROFILE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_profileReferredBy": {
+      "message": "This profile cannot be deleted because it is referred by the following profiles:"
+   },
+   "options_profileSyncDisabled": {
+      "message": "Syncing is disabled for this profile."
+   },
+   "options_profileSyncDisabled_quotaPerItem": {
+      "message": "Syncing is disabled for this profile for using too much storage space."
+   },
+   "options_profileTabPrefix": {
+      "message": "Profile :: "
+   },
+   "options_profileType": {
+      "message": "Please select the type of the profile:"
+   },
+   "options_profileTypeFixedProfile": {
+      "message": "Proxy Profile"
+   },
+   "options_profileTypePacProfile": {
+      "message": "PAC Profile"
+   },
+   "options_profileTypeRuleListProfile": {
+      "message": "Rule List Profile"
+   },
+   "options_profileTypeSwitchProfile": {
+      "message": "Switch Profile"
+   },
+   "options_profileTypeVirtualProfile": {
+      "message": "Virtual Profile"
+   },
+   "options_profileUnsupported": {
+      "message": "Unsupported profile type $TYPE$!",
+      "placeholders": {
+         "TYPE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_profileUnsupportedHelp": {
+      "message": "The options could be broken, or from a newer version of this program."
+   },
+   "options_protocol_direct": {
+      "message": "DIRECT"
+   },
+   "options_protocol_useDefault": {
+      "message": "(use default)"
+   },
+   "options_proxyAuthHidePassword": {
+      "message": "Hide password"
+   },
+   "options_proxyAuthNone": {
+      "message": "No Authentication"
+   },
+   "options_proxyAuthPassword": {
+      "message": "Password"
+   },
+   "options_proxyAuthShowPassword": {
+      "message": "Show password"
+   },
+   "options_proxyAuthUsername": {
+      "message": "Username"
+   },
+   "options_proxy_auth": {
+      "message": "Authentication"
+   },
+   "options_proxy_authAllWarningPac": {
+      "message": "Warning: The username/password may be sent to unexpected servers returned by the PAC script."
+   },
+   "options_proxy_authAllWarningPacScript": {
+      "message": "Please make sure that you trust the script below before providing sensitive credentials."
+   },
+   "options_proxy_authAllWarningPacUrl": {
+      "message": "Please make sure that you trust the script provided via the URL above before entering sensitive credentials."
+   },
+   "options_proxy_authNotSupported": {
+      "message": "Your browser DOES NOT support $PROTOCOLDISP$ proxy authentication! Please do not report this issue to SwitchyOmega. Contact the support for your browser instead.",
+      "placeholders": {
+         "PROTOCOLDISP": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_proxy_authReferencedWarning": {
+      "message": "Additionally, using this profile in other profiles (e.g. Switch Profile) may cause the username/password to be sent to proxy servers configured in other profiles."
+   },
+   "options_proxy_expand": {
+      "message": "Show Advanced"
+   },
+   "options_proxy_port": {
+      "message": "Port"
+   },
+   "options_proxy_protocol": {
+      "message": "Protocol"
+   },
+   "options_proxy_scheme": {
+      "message": "Scheme"
+   },
+   "options_proxy_server": {
+      "message": "Server"
+   },
+   "options_proxy_single": {
+      "message": "Use the proxy above for all protocols."
+   },
+   "options_quickSwitch": {
+      "message": "Quick Switch"
+   },
+   "options_refreshOnProfileChange": {
+      "message": "Refresh current tab on profile change."
+   },
+   "options_renameProfile": {
+      "message": "Rename"
+   },
+   "options_renameProfileName": {
+      "message": "New profile name"
+   },
+   "options_replaceProfile": {
+      "message": "Replace Profile"
+   },
+   "options_replaceProfileConfirm": {
+      "message": "Do you really want to replace $FromProfile$ with $ToProfile$?",
+      "placeholders": {
+         "FromProfile": {
+            "content": "$1"
+         },
+         "ToProfile": {
+            "content": "$2"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_replaceProfileHelp": {
+      "message": "If you proceed, all rules pointing to $FromProfile$ will be updated to use $ToProfile$ instead. Other options, such as startup profile and Quick Switch will also be modified as appropriate. However, the two profile themselves will NOT be changed or deleted.",
+      "placeholders": {
+         "FromProfile": {
+            "content": "$1"
+         },
+         "ToProfile": {
+            "content": "$2"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_replaceProfileSuccess": {
+      "message": "Options updated."
+   },
+   "options_reset": {
+      "message": "Reset options"
+   },
+   "options_resetOptionsConfirm": {
+      "message": "Do you really want to reset the options? All profiles and settings will be LOST!"
+   },
+   "options_resetRules": {
+      "message": "Reset rules"
+   },
+   "options_resetRulesConfirm": {
+      "message": "Are you sure to set the result profile of ALL rules to the following profile?"
+   },
+   "options_resetRules_help": {
+      "message": "Set profile for all rules"
+   },
+   "options_resetSuccess": {
+      "message": "Options reset."
+   },
+   "options_restoreLocal": {
+      "message": "Restore from file"
+   },
+   "options_restoreLocalHelp": {
+      "message": "Restore your SwitchyOmega options from a local file."
+   },
+   "options_restoreOnline": {
+      "message": "Restore from online"
+   },
+   "options_restoreOnlinePlaceholder": {
+      "message": "Options file URL (e.g. 'http://example.com/switchy.bak')"
+   },
+   "options_restoreOnlineSubmit": {
+      "message": "Restore"
+   },
+   "options_resultProfile": {
+      "message": "Profile"
+   },
+   "options_resultProfileForSelectedDomains": {
+      "message": "Use this profile for all selected domains"
+   },
+   "options_revertProxyChanges": {
+      "message": "Revert proxy changes done by other apps."
+   },
+   "options_ruleListDefaultProfile": {
+      "message": "Default profile"
+   },
+   "options_ruleListFormat": {
+      "message": "Rule List Format"
+   },
+   "options_ruleListLastUpdate": {
+      "message": "Rule list downloaded at $TIME$:",
+      "placeholders": {
+         "TIME": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_ruleListLineCount": {
+      "message": "$COUNT$ line(s) of rules",
+      "placeholders": {
+         "COUNT": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_ruleListMatchProfile": {
+      "message": "Match profile"
+   },
+   "options_ruleListObsolete": {
+      "message": "Rule list is obsolete due to URL change. Press the download button above to update."
+   },
+   "options_ruleListUrlHelp": {
+      "message": "The rule list will be updated from this URL. If it is left blank, the following text will be parsed instead."
+   },
+   "options_ruleNote": {
+      "message": "Note"
+   },
+   "options_saveSuccess": {
+      "message": "Options saved."
+   },
+   "options_scheme_default": {
+      "message": "(default)"
+   },
+   "options_showConditionTypeHelp": {
+      "message": "Show help"
+   },
+   "options_showConditionTypesAdvanced": {
+      "message": "Show advanced condition types"
+   },
+   "options_showConditionTypesAdvancedHelp": {
+      "message": "Unlocks new types of advanced but complicated switch conditions. For most scenarios, the basic condition types should be enough, so this option is not recommended."
+   },
+   "options_showExternalProfile": {
+      "message": "Show popup menu item to import proxy settings from other apps."
+   },
+   "options_showExternalProfileHelp": {
+      "message": "When $SYSTEMPROFILE$ is selected, you can import the effective proxy settings from other apps by selecting $EXTERNALPROFILE$ on the popup menu. The settings will be imported as a profile using the name you provide. Please note that the imported profile is a snapshot and will not reflect any changes from the source app thereafter.",
+      "placeholders": {
+         "EXTERNALPROFILE": {
+            "content": "$2"
+         },
+         "SYSTEMPROFILE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_showInspectMenu": {
+      "message": "Allow inspecting proxy used for page elements via context menu."
+   },
+   "options_sort": {
+      "message": "Sort"
+   },
+   "options_startupProfile": {
+      "message": "Startup Profile"
+   },
+   "options_startupProfile_none": {
+      "message": "(Current profile)"
+   },
+   "options_switchAttachedProfileInCondition": {
+      "message": "Rule list rules"
+   },
+   "options_switchAttachedProfileInConditionDetails": {
+      "message": "(Any request matching the rule list below)"
+   },
+   "options_switchAttachedProfileInConditionDisabled": {
+      "message": "(Rule list rules are DISABLED)"
+   },
+   "options_switchDefaultProfile": {
+      "message": "Default"
+   },
+   "options_syncConflictAlert": {
+      "message": "You have uploaded a copy of your options on another device via syncing."
+   },
+   "options_syncConflictHelp": {
+      "message": "You may download the remote copy to your device if you like. \u003Cbr>However, doing so would \u003Cb>overwrite your existing settings and profiles\u003C/b> on this device."
+   },
+   "options_syncDisable": {
+      "message": "Disable syncing"
+   },
+   "options_syncEnable": {
+      "message": "Enable Syncing"
+   },
+   "options_syncEnableForce": {
+      "message": "Download from Syncing"
+   },
+   "options_syncPristineHelp": {
+      "message": "You can now automatically synchronize your settings and profiles across all your desktop devices running Chrome browser."
+   },
+   "options_syncReset": {
+      "message": "Clear remote copy"
+   },
+   "options_syncSyncAlert": {
+      "message": "Your options are automatically synchronized with your other devices."
+   },
+   "options_syncSyncHelp": {
+      "message": "Please note that you must sign in to Chrome on each of your devices (including this one) for the syncing to actually work. \u003Cbr> You may check this section on other devices to ensure that it is working."
+   },
+   "options_syncUnsupportedHelp": {
+      "message": "Options syncing is not supported on your platform or browser. For now, only Chrome browser on desktop is supported."
+   },
+   "options_tab_general": {
+      "message": "General"
+   },
+   "options_tab_importExport": {
+      "message": "Import/Export"
+   },
+   "options_tab_ui": {
+      "message": "Interface"
+   },
+   "options_title": {
+      "message": "SwitchyOmega Options"
+   },
+   "options_virtualProfileReplace": {
+      "message": "Replace target profile"
+   },
+   "options_virtualProfileReplaceHelp": {
+      "message": "You can migrate existing options to use this virtual profile instead of $PROFILE$. Doing so will update all existing rules concerning $PROFILE$ and point them to this virtual profile, so that their result profile can be controlled here.",
+      "placeholders": {
+         "PROFILE": {
+            "content": "$2"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "options_virtualProfileTarget": {
+      "message": "Target"
+   },
+   "options_virtualProfileTargetHelp": {
+      "message": "When this profile is applied, it acts exactly the same as the profile selected below."
+   },
+   "options_weekDayShort_0": {
+      "message": "Su"
+   },
+   "options_weekDayShort_1": {
+      "message": "Mo"
+   },
+   "options_weekDayShort_2": {
+      "message": "Tu"
+   },
+   "options_weekDayShort_3": {
+      "message": "We"
+   },
+   "options_weekDayShort_4": {
+      "message": "Th"
+   },
+   "options_weekDayShort_5": {
+      "message": "Fr"
+   },
+   "options_weekDayShort_6": {
+      "message": "Sa"
+   },
+   "options_welcomeNormal": {
+      "message": "You have successfully installed SwitchyOmega, the ultimate proxy switcher."
+   },
+   "options_welcomeNormalGuide": {
+      "message": "Please tell SwitchyOmega about your proxies through the options page. Let's see how."
+   },
+   "options_welcomeUpgrade": {
+      "message": "You have successfully upgraded to SwitchyOmega. Don't panic, your existing options are fully preserved."
+   },
+   "options_welcomeUpgradeGuide": {
+      "message": "Now let's go through a quick guide of the new options page."
+   },
+   "popup_addCondition": {
+      "message": "Add condition"
+   },
+   "popup_addConditionTo": {
+      "message": "Add condition to"
+   },
+   "popup_configureMonitorWebRequests": {
+      "message": "Configure Network Monitor"
+   },
+   "popup_errorLog": {
+      "message": "Save error log"
+   },
+   "popup_externalProfile": {
+      "message": "(External Profile)"
+   },
+   "popup_externalProfileName": {
+      "message": "profile name"
+   },
+   "popup_issueTemplate": {
+      "message": "\n\n\n\u003C!-- Please write your comment ABOVE this line. -->\nSwitchyOmega $projectVersion$\n$userAgent$",
+      "placeholders": {
+         "_unused_0": {
+            "content": "$0"
+         },
+         "projectVersion": {
+            "content": "$1"
+         },
+         "userAgent": {
+            "content": "$2"
+         }
+      }
+   },
+   "popup_proxyNotControllableDetails": {
+      "message": "You cannot switch profiles with SwitchyOmega unless you fix the problem above."
+   },
+   "popup_proxyNotControllableDetails_upgrade": {
+      "message": "You can't enable two (or more) versions of SwitchyOmega at the same time. Please disable one of them."
+   },
+   "popup_proxyNotControllableManage": {
+      "message": "Manage extensions"
+   },
+   "popup_proxyNotControllable_app": {
+      "message": "The proxy settings are controlled by other app(s) or extension(s). Please disable or uninstall the apps or extensions in conflict."
+   },
+   "popup_proxyNotControllable_disabled": {
+      "message": "The proxy settings are disabled by explicit request from other app(s) or extension(s)."
+   },
+   "popup_proxyNotControllable_policy": {
+      "message": "The proxy settings are overruled by policies. Please contact your administrator."
+   },
+   "popup_proxyNotControllable_unknown": {
+      "message": "The proxy settings cannot be controlled. Please check your system and browser settings."
+   },
+   "popup_proxyNotControllable_upgrade": {
+      "message": "Proxy settings are now controlled by a newer version of SwitchyOmega."
+   },
+   "popup_reportIssues": {
+      "message": "Report issues"
+   },
+   "popup_requestErrorAddCondition": {
+      "message": "You can review the following domains and use proxy for them when appropriate."
+   },
+   "popup_requestErrorCannotAddCondition": {
+      "message": "You can add switch conditions for them only when using a Switch Profile."
+   },
+   "popup_requestErrorCount": {
+      "message": "$COUNT$ failed resources",
+      "placeholders": {
+         "COUNT": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "popup_requestErrorHeading": {
+      "message": "Resources that failed to load"
+   },
+   "popup_requestErrorWarning": {
+      "message": "A few resources failed to load due to issues with your network, proxy server or the webpage."
+   },
+   "popup_requestErrorWarningHelp": {
+      "message": "SwitchyOmega is just the reporter of these issues, not the cause of them."
+   },
+   "popup_showOptions": {
+      "message": "Options"
+   },
+   "popup_title": {
+      "message": "SwitchyOmega Popup"
+   },
+   "profile_direct": {
+      "message": "[Direct]"
+   },
+   "profile_system": {
+      "message": "[System Proxy]"
+   },
+   "ruleListFormat_AutoProxy": {
+      "message": "AutoProxy"
+   },
+   "ruleListFormat_Switchy": {
+      "message": "Switchy"
+   },
+   "ruleList_error_invalidRule": {
+      "message": "Invalid rule at Line $LNO$: $SOURCE$",
+      "placeholders": {
+         "LNO": {
+            "content": "$1"
+         },
+         "SOURCE": {
+            "content": "$2"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "ruleList_error_missingResultProfile": {
+      "message": "Missing result profile name at Line $LNO$: $SOURCE$",
+      "placeholders": {
+         "LNO": {
+            "content": "$1"
+         },
+         "SOURCE": {
+            "content": "$2"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "ruleList_error_noDefaultRule": {
+      "message": "Missing default rule with catch-all '*' condition!"
+   },
+   "ruleList_error_resultNotEnabled": {
+      "message": "Missing '@with result' directive!"
+   },
+   "ruleList_error_unknownProfile": {
+      "message": "Unknown profile: $PROFILE$",
+      "placeholders": {
+         "PROFILE": {
+            "content": "$1"
+         },
+         "_unused_0": {
+            "content": "$0"
+         }
+      }
+   },
+   "ruleList_usageUrl": {
+      "message": "https://github.com/mrfanii/SwitchyOmega-V3/wiki/RuleListUsage"
+   },
+   "upgrade_profile_auto": {
+      "message": "Auto Switch"
+   }
 }

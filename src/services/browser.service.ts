@@ -14,7 +14,6 @@ const minimal_args = [
   "--disable-default-apps",
   "--disable-dev-shm-usage",
   "--disable-domain-reliability",
-  "--disable-extensions",
   "--disable-features=AudioServiceOutOfProcess",
   "--disable-hang-monitor",
   "--disable-ipc-flooding-protection",
@@ -33,7 +32,7 @@ const minimal_args = [
   "--no-default-browser-check",
   "--no-first-run",
   "--no-pings",
-  "--no-sandbox",
+  // "--no-sandbox",
   "--no-zygote",
   "--password-store=basic",
   "--use-gl=swiftshader",
@@ -75,6 +74,8 @@ export class BrowserService {
    */
   async launchBrowser(): Promise<Browser> {
     const browser: Browser = await puppeteer.launch({
+      pipe: true,
+      enableExtensions: [this.config.extensionPath],
       executablePath: this.config.browserPath,
       protocolTimeout: this.config.timeOutResponse,
       headless: false,
@@ -82,8 +83,6 @@ export class BrowserService {
       args: [
         ...minimal_args,
         `--window-size=400,650`,
-        `--disable-extensions-except=${this.config.extensionPath}`,
-        `--load-extension=${this.config.extensionPath}`,
       ],
       ignoreDefaultArgs: ["--enable-automation"],
     });

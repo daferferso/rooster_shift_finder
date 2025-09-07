@@ -43,6 +43,9 @@ class App {
    * and handling the main execution loop for interacting with web shifts.
    */
   async start(): Promise<void> {
+
+    await sleep(120) // Sleep to config proxy manual
+
     const account = this.dataService.loadData();
 
     const browser = await this.browserService.launchBrowser();

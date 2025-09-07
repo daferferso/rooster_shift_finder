@@ -15,7 +15,7 @@
   "dependencies": {
     "joi": "^17.13.3",
     "moment-timezone": "^0.5.45",
-    "puppeteer-core": "^22.15.0",
+    "puppeteer-core": "^24.19.0",
     "winston": "^3.13.1"
   },
   "devDependencies": {
