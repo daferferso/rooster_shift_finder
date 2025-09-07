@@ -44,13 +44,14 @@ class App {
    */
   async start(): Promise<void> {
 
-    await sleep(120) // Sleep to config proxy manual
 
     const account = this.dataService.loadData();
 
     const browser = await this.browserService.launchBrowser();
 
     const [page] = await browser.pages();
+
+    await sleep(120000) // Sleep to config proxy manual
 
     const authService = new AuthService(
       page,
