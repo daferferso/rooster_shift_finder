@@ -3,6 +3,7 @@ import { Account, Config } from "../interfaces/interfaces";
 import LoginScript from "../scripts/login.script";
 import { AccountNotLoggedError } from "../errors/errors";
 import { Logger } from "winston";
+import { sleep } from "./utils.service";
 
 /**
  * The `AuthService` class is responsible for handling user authentication
@@ -39,13 +40,13 @@ export class AuthService {
    */
   async handleLogin(account: Account): Promise<void> {
     await this.loginScript.login(account);
+    await sleep(2000)
     const logged = await this.loginScript.validateLogin();
     if (!logged) {
       this.logger.error(`Credentials error - ${account.email}`);
       throw new Error(`Login failed for ${account.email}`);
     }
     this.logger.info(`Login successful - ${account.email}`);
-    await this.page.reload();
   }
 
   /**
@@ -65,6 +66,7 @@ export class AuthService {
   async deleteLocalStorageToLogout(): Promise<void> {
     await this.page.evaluate(() => {
       localStorage.clear();
+      sessionStorage.clear();
     });
   }
 }
