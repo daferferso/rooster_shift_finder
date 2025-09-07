@@ -11,6 +11,7 @@ import {
   ConsoleTransportInstance,
   FileTransportInstance,
 } from "winston/lib/winston/transports";
+import moment from "moment";
 
 const LOGIN_URL = "https://bo.usehurrier.com/app/compliance/web/login";
 const APP_URL = "https://bo.usehurrier.com/app/rooster/web/shifts";
@@ -158,10 +159,17 @@ class App {
    * @returns {Logger} - The configured logger instance.
    */
   private createLogger(): Logger {
+    const timezone = "America/La_Paz";
+
+    const timestampWithTZ = winston.format((info) => {
+      info.timestamp = moment().tz(timezone).format("YYYY-MM-DD HH:mm:ss.SSS");
+      return info;
+    });
+
     const consoleTransport = new winston.transports.Console({
       format: winston.format.combine(
         winston.format.colorize({ all: true }),
-        winston.format.timestamp(),
+        timestampWithTZ(),
         winston.format.printf(
           (info) => `${info.timestamp} - ${info.level}: ${info.message}`
         )
@@ -177,7 +185,7 @@ class App {
       const fileTransport = new winston.transports.File({
         filename: "./utils/app.log",
         format: winston.format.combine(
-          winston.format.timestamp(),
+          timestampWithTZ(),
           winston.format.printf(
             (info) => `${info.timestamp} - ${info.level}: ${info.message}`
           )
