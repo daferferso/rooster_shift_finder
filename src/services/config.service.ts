@@ -7,6 +7,8 @@ import Joi from "joi";
  * or is invalid in the file.
  */
 const defaultConfig: Config = {
+  login_url: "https://bo.usehurrier.com/app/compliance/web/login",
+  app_url: "https://bo.usehurrier.com/app/rooster/web/shifts",
   debugFile: false,
   requestDelay: 3000,
   extensionPath: "modify_this_part\\utils\\extension",
@@ -27,6 +29,8 @@ const defaultConfig: Config = {
  * Ensures that configuration values are of the correct type and meet specified requirements.
  */
 const configSchema = Joi.object({
+  login_url: Joi.string().uri().required(),
+  app_url: Joi.string().uri().required(),
   debugFile: Joi.boolean().required(),
   requestDelay: Joi.number().integer().min(0).required(),
   extensionPath: Joi.string().required(),

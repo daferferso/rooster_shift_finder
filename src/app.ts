@@ -13,8 +13,6 @@ import {
 } from "winston/lib/winston/transports";
 import moment from "moment";
 
-const LOGIN_URL = "https://bo.usehurrier.com/app/compliance/web/login";
-const APP_URL = "https://bo.usehurrier.com/app/rooster/web/shifts";
 
 /**
  * Main application class that initializes services and handles the main execution loop.
@@ -51,7 +49,7 @@ class App {
 
     const [page] = await browser.pages();
 
-    await sleep(120000) // Sleep to config proxy manual
+    await sleep(3000) // Sleep to config proxy manual
 
     const authService = new AuthService(
       page,
@@ -87,11 +85,11 @@ class App {
 
     while (true) {
       try {
-        await page.goto(LOGIN_URL);
+        await page.goto(this.configService.config.login_url);
         if (!logged) {
           if (account.useProxy) await proxyService.handleProxyConnection();
           await authService.handleLogin(account);
-          await page.goto(APP_URL);
+          await page.goto(this.configService.config.app_url);
           logged = true;
         }
 
@@ -134,22 +132,23 @@ class App {
           case "TimeoutError":
             this.logger.error("Proxy or protocol error");
             if (account.useProxy) await proxyService.handleProxyConnection();
-            await page.goto(APP_URL);
+            await page.goto(this.configService.config.app_url);
             continue;
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
-            await page.goto(LOGIN_URL);
+            await page.goto(this.configService.config.login_url);
+            await sleep(60000) // Add sleep to avoid Credential error
             await authService.handleLogin(account);
-            await page.goto(APP_URL);
+            await page.goto(this.configService.config.app_url);
             logged = true;
             loopService.iterationCount = 0;
-            await page.goto(APP_URL);
+            await page.goto(this.configService.config.app_url);
             continue;
           default:
             this.logger.error(`Other type of error: ${error}`);
-            await page.goto(LOGIN_URL);
+            await page.goto(this.configService.config.login_url);
             await authService.handleLogin(account);
-            await page.goto(APP_URL);
+            await page.goto(this.configService.config.app_url);
             logged = true;
             loopService.iterationCount = 0;
             continue;
