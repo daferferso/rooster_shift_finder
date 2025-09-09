@@ -49,7 +49,7 @@ class App {
 
     const [page] = await browser.pages();
 
-    await sleep(3000) // Sleep to config proxy manual
+    await sleep(60000) // Sleep to config proxy manual
 
     const authService = new AuthService(
       page,
