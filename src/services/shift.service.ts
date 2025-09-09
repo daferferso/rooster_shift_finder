@@ -2,7 +2,7 @@ import { Page } from "puppeteer-core";
 import { Account, Shift } from "../interfaces/interfaces";
 import moment, { Duration, Moment } from "moment-timezone";
 import { Logger } from "winston";
-import { parseDateTimeCondition, parseDateTimeShift } from "./utils.service";
+import { parseDateTimeCondition, parseDateTimeShift, sleep } from "./utils.service";
 import { DataService } from "./data.service";
 
 /**
@@ -96,8 +96,7 @@ export class ShiftService {
         this.dataService.saveData({ account: this.account });
 
         this.logger.info(
-          `Shift taken: ${shift.start ? shift.start : shift.start_at} - ${
-            shift.end ? shift.end : shift.end_at
+          `Shift taken: ${shift.start ? shift.start : shift.start_at} - ${shift.end ? shift.end : shift.end_at
           } - ${this.account.email}`
         );
 
@@ -215,7 +214,8 @@ export class ShiftService {
     end: Moment
   ): Promise<boolean> {
     try {
-      const url = `https://bo.usehurrier.com/api/rooster/v2/unassigned_shifts/${shift.id}/assign`;
+
+      const url = `https://${this.account.country.code}.usehurrier.com/api/rooster/v2/unassigned_shifts/${shift.id}/assign`;
       const startShift = start.tz("UTC").toISOString();
       const endShift = end.tz("UTC").toISOString();
       const body = JSON.stringify({
@@ -272,7 +272,7 @@ export class ShiftService {
    */
   private async fetchTakeSwapShift(shift: Shift): Promise<boolean> {
     try {
-      const url = `https://bo.usehurrier.com/api/rooster/v2/shifts/${shift.id}/swap`;
+      const url = `https://${this.account.country.code}.usehurrier.com/api/rooster/v2/shifts/${shift.id}/swap`;
       let headers = { ...this.baseRequests.availableSwaps.headers };
 
       const startTime = performance.now();
