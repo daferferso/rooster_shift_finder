@@ -49,7 +49,7 @@ class App {
 
     const [page] = await browser.pages();
 
-    await sleep(60000) // Sleep to config proxy manual
+    await sleep(2000) // Sleep to config proxy manual
 
     const authService = new AuthService(
       page,
@@ -78,7 +78,7 @@ class App {
     );
 
     loopService.iterationLimit = Math.floor(
-      7200000 / this.configService.config.requestDelay
+      15000 / this.configService.config.requestDelay
     );
 
     let logged = false;
@@ -86,39 +86,11 @@ class App {
     while (true) {
       try {
         if (!logged) {
-          await page.goto(this.configService.config.login_url);
-          if (account.useProxy) await proxyService.handleProxyConnection();
-          await authService.handleLogin(account);
-          loopService.clearBaseRequests(); // Clear captured requests for fresh capture
-          await page.goto(this.configService.config.app_url);
+          await this.handleLogin(account, authService, proxyService, loopService, page);
           logged = true;
         }
 
-        page.removeAllListeners("request");
-        page.setRequestInterception(true);
-
-        page.on("request", async (req: HTTPRequest) => {
-          if (req.isInterceptResolutionHandled()) return;
-          try {
-            if (req.url().includes("available_unassigned_shifts")) {
-              loopService.baseRequests["availableUnassignedShifts"] = {
-                url: req.url(),
-                headers: req.headers(),
-              };
-            }
-            if (req.url().includes("available_swaps")) {
-              loopService.baseRequests["availableSwaps"] = {
-                url: req.url(),
-                headers: req.headers(),
-              };
-            }
-            req.continue();
-          } catch (error) {
-            this.logger.error(`Error processing request: ${error}`);
-            req.continue();
-            throw error;
-          }
-        });
+        this.setupRequestInterception(page, loopService);
 
         await sleep(2000);
 
@@ -137,27 +109,94 @@ class App {
             continue;
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
-            await page.goto(this.configService.config.login_url);
-            await sleep(2000) // Add sleep to avoid Credential error
-            await authService.handleLogin(account);
-            loopService.clearBaseRequests(); // Clear captured requests for fresh capture
-            await page.goto(this.configService.config.app_url);
+            await sleep(2000); // Add sleep to avoid Credential error
+            await this.handleReLogin(account, authService, proxyService, loopService, page);
             logged = true;
-            loopService.iterationCount = 0;
-            await page.goto(this.configService.config.app_url);
             continue;
           default:
             this.logger.error(`Other type of error: ${error}`);
-            await page.goto(this.configService.config.login_url);
-            await authService.handleLogin(account);
-            loopService.clearBaseRequests(); // Clear captured requests for fresh capture
-            await page.goto(this.configService.config.app_url);
+            await this.handleReLogin(account, authService, proxyService, loopService, page);
             logged = true;
-            loopService.iterationCount = 0;
             continue;
         }
       }
     }
+  }
+
+  /**
+   * Handles the complete login process including proxy setup and navigation.
+   * @param {any} account - User account information
+   * @param {any} authService - Authentication service instance
+   * @param {any} proxyService - Proxy service instance
+   * @param {any} loopService - Loop service instance
+   * @param {any} page - Puppeteer page instance
+   * @returns {Promise<void>}
+   */
+  private async handleLogin(
+    account: any,
+    authService: any,
+    proxyService: any,
+    loopService: any,
+    page: any
+  ): Promise<void> {
+    await page.goto(this.configService.config.login_url);
+    if (account.useProxy) await proxyService.handleProxyConnection();
+    await authService.handleLogin(account);
+    loopService.clearBaseRequests();
+    await page.goto(this.configService.config.app_url);
+  }
+
+  /**
+   * Handles re-login process after logout errors.
+   * @param {any} account - User account information
+   * @param {any} authService - Authentication service instance
+   * @param {any} proxyService - Proxy service instance
+   * @param {any} loopService - Loop service instance
+   * @param {any} page - Puppeteer page instance
+   * @returns {Promise<void>}
+   */
+  private async handleReLogin(
+    account: any,
+    authService: any,
+    proxyService: any,
+    loopService: any,
+    page: any
+  ): Promise<void> {
+    await this.handleLogin(account, authService, proxyService, loopService, page);
+    loopService.iterationCount = 0;
+  }
+
+  /**
+   * Sets up request interception for capturing API requests.
+   * @param {any} page - Puppeteer page instance
+   * @param {any} loopService - Loop service instance
+   */
+  private setupRequestInterception(page: any, loopService: any): void {
+    page.removeAllListeners("request");
+    page.setRequestInterception(true);
+
+    page.on("request", async (req: any) => {
+      if (req.isInterceptResolutionHandled()) return;
+      try {
+        if (req.url().includes("available_unassigned_shifts")) {
+          loopService.baseRequests["availableUnassignedShifts"] = {
+            url: req.url(),
+            headers: req.headers(),
+          };
+        }
+        if (req.url().includes("available_swaps")) {
+          loopService.baseRequests["availableSwaps"] = {
+            url: req.url(),
+            headers: req.headers(),
+          };
+        }
+        req.continue();
+      } catch (error) {
+        this.logger.error(`Error processing request: ${error}`);
+        req.continue();
+        throw error;
+      }
+    });
   }
 
   /**
