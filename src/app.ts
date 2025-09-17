@@ -13,7 +13,6 @@ import {
 } from "winston/lib/winston/transports";
 import moment from "moment";
 
-
 /**
  * Main application class that initializes services and handles the main execution loop.
  */
@@ -41,15 +40,13 @@ class App {
    * and handling the main execution loop for interacting with web shifts.
    */
   async start(): Promise<void> {
-
-
     const account = this.dataService.loadData();
 
     const browser = await this.browserService.launchBrowser();
 
     const [page] = await browser.pages();
 
-    await sleep(2000) // Sleep to config proxy manual
+    await sleep(60000); // Sleep to config proxy manual
 
     const authService = new AuthService(
       page,
@@ -78,7 +75,7 @@ class App {
     );
 
     loopService.iterationLimit = Math.floor(
-      15000 / this.configService.config.requestDelay
+      7200000 / this.configService.config.requestDelay
     );
 
     let logged = false;
@@ -86,7 +83,13 @@ class App {
     while (true) {
       try {
         if (!logged) {
-          await this.handleLogin(account, authService, proxyService, loopService, page);
+          await this.handleLogin(
+            account,
+            authService,
+            proxyService,
+            loopService,
+            page
+          );
           logged = true;
         }
 
@@ -110,12 +113,24 @@ class App {
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
             await sleep(2000); // Add sleep to avoid Credential error
-            await this.handleReLogin(account, authService, proxyService, loopService, page);
+            await this.handleReLogin(
+              account,
+              authService,
+              proxyService,
+              loopService,
+              page
+            );
             logged = true;
             continue;
           default:
             this.logger.error(`Other type of error: ${error}`);
-            await this.handleReLogin(account, authService, proxyService, loopService, page);
+            await this.handleReLogin(
+              account,
+              authService,
+              proxyService,
+              loopService,
+              page
+            );
             logged = true;
             continue;
         }
@@ -162,7 +177,13 @@ class App {
     loopService: any,
     page: any
   ): Promise<void> {
-    await this.handleLogin(account, authService, proxyService, loopService, page);
+    await this.handleLogin(
+      account,
+      authService,
+      proxyService,
+      loopService,
+      page
+    );
     loopService.iterationCount = 0;
   }
 
