@@ -85,10 +85,11 @@ class App {
 
     while (true) {
       try {
-        await page.goto(this.configService.config.login_url);
         if (!logged) {
+          await page.goto(this.configService.config.login_url);
           if (account.useProxy) await proxyService.handleProxyConnection();
           await authService.handleLogin(account);
+          loopService.clearBaseRequests(); // Clear captured requests for fresh capture
           await page.goto(this.configService.config.app_url);
           logged = true;
         }
@@ -137,8 +138,9 @@ class App {
           case "AccountNotLoggedError":
             this.logger.error("Logout error");
             await page.goto(this.configService.config.login_url);
-            await sleep(60000) // Add sleep to avoid Credential error
+            await sleep(2000) // Add sleep to avoid Credential error
             await authService.handleLogin(account);
+            loopService.clearBaseRequests(); // Clear captured requests for fresh capture
             await page.goto(this.configService.config.app_url);
             logged = true;
             loopService.iterationCount = 0;
@@ -148,6 +150,7 @@ class App {
             this.logger.error(`Other type of error: ${error}`);
             await page.goto(this.configService.config.login_url);
             await authService.handleLogin(account);
+            loopService.clearBaseRequests(); // Clear captured requests for fresh capture
             await page.goto(this.configService.config.app_url);
             logged = true;
             loopService.iterationCount = 0;

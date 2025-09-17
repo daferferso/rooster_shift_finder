@@ -41,6 +41,16 @@ export class LoopService {
   }
 
   /**
+   * Clears the captured base requests to allow fresh capture after login.
+   * This method should be called after each login to ensure requests are updated.
+   */
+  clearBaseRequests(): void {
+    this.logger.info("Clearing captured base requests for fresh capture");
+    this.baseRequests = {};
+    this.requests = {};
+  }
+
+  /**
    * Creates request URLs for each day in the account's schedule.
    * Requests are based on the account's conditions and scheduled days.
    */
