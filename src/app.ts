@@ -46,7 +46,7 @@ class App {
 
     const [page] = await browser.pages();
 
-    await sleep(60000); // Sleep to config proxy manual
+    await sleep(this.configService.config.extensionDelay); // Sleep to config proxy manual
 
     const authService = new AuthService(
       page,
@@ -74,8 +74,9 @@ class App {
       this.logger
     );
 
+    // Every 3.5 hours 12600000
     loopService.iterationLimit = Math.floor(
-      7200000 / this.configService.config.requestDelay
+      this.configService.config.iterationLimit / this.configService.config.requestDelay
     );
 
     let logged = false;

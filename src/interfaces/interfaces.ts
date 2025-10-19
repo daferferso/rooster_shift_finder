@@ -37,7 +37,9 @@ export interface Config {
   app_url: string
   debugFile: boolean;
   requestDelay: number;
+  iterationLimit: number;
   extensionPath: string;
+  extensionDelay: number;
   extensionUrl: string;
   browserPath: string;
   timeOutElements: number;
