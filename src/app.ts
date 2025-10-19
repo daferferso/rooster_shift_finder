@@ -5,7 +5,7 @@ import { BrowserService } from "./services/browser.service";
 import { AuthService } from "./services/auth.service";
 import { LoopService } from "./services/loop.service";
 import { ProxyService } from "./services/proxy.service";
-import { HTTPRequest } from "puppeteer-core";
+// import { HTTPRequest } from "puppeteer-core";
 import { sleep } from "./services/utils.service";
 import {
   ConsoleTransportInstance,
