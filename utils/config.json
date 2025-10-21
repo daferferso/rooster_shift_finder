@@ -5,7 +5,7 @@
   "requestDelay": 3000,
   "iterationLimit": 12600000,
   "extensionPath": "C:\\Users\\Fernando\\Downloads\\rooster_shift_finder\\utils\\extension",
-  "extensionDelay": 30000,
+  "extensionDelay": 5000,
   "extensionUrl": "chrome-extension://cpmhjliddapgdeodmklfbibnchacikpl",
   "browserPath": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
   "timeOutElements": 20000,
@@ -14,6 +14,6 @@
     "emailInput": "#root > form > div.UYB26ZLIoSbGIGUW1hvr.R3Goxx0LcfBfN_H8yNHt > div.rSk7xM4cCbpAgI4L2Wcx.UqmftlusekB53wArie1z > input[type=email]",
     "passwordInput": "#root > form > div.UYB26ZLIoSbGIGUW1hvr.R8puBFqSQ9heQ00zPFaQ > div.rSk7xM4cCbpAgI4L2Wcx.UqmftlusekB53wArie1z > input[type=password]",
     "loginButton": "#root > form > button",
-    "pageTitle": "#root > div.cA8q55ATZUS2AeBxSaGw > div.u7CV8ZNLToLt2CByixP4 > div.QvZLJNKPxAwwldLJiDDm > h1"
+    "pageTitle": "#root > div.cA8q55ATZUS2AeBxSaGw > div.EvRW0Z6ycgfykdwWG6If.yHni8rS4Kkrzjwyht7DR > div.YbKc2Y7mk8TV1XDuWJW6 > div > div > h1"
   }
 }
